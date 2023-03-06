@@ -1,0 +1,120 @@
+[gd_scene load_steps=13 format=3 uid="uid://bum4lxm6xqo04"]
+
+[ext_resource type="Texture2D" uid="uid://ctlrp2j2oi8ko" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_w3nnn"]
+[ext_resource type="Script" path="res://entities/Enemies/hunter_a/hunter_a.gd" id="1_xgpdg"]
+[ext_resource type="Script" path="res://entities/Enemies/WallDetector.gd" id="3_yjub6"]
+[ext_resource type="Script" path="res://entities/Enemies/AbyssDetector.gd" id="4_mgatb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nexl"]
+atlas = ExtResource("1_w3nnn")
+region = Rect2(224, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gpsr"]
+atlas = ExtResource("1_w3nnn")
+region = Rect2(0, 96, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8rip"]
+atlas = ExtResource("1_w3nnn")
+region = Rect2(160, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fq4gg"]
+atlas = ExtResource("1_w3nnn")
+region = Rect2(192, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_otwag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nexl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gpsr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n8rip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fq4gg")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gqfjh"]
+radius = 7.0
+height = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rexcb"]
+size = Vector2(19, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yeqj1"]
+size = Vector2(20, 14)
+
+[node name="Hunter_a" type="CharacterBody2D"]
+collision_mask = 2
+script = ExtResource("1_xgpdg")
+speed = 50.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_otwag")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.799454
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_gqfjh")
+
+[node name="TransitionTimer" type="Timer" parent="."]
+
+[node name="WallDetector" type="Marker2D" parent="."]
+gizmo_extents = 0.0
+script = ExtResource("3_yjub6")
+
+[node name="RaycastLeft" type="RayCast2D" parent="WallDetector"]
+position = Vector2(-11, 0)
+target_position = Vector2(-6, 0)
+collision_mask = 2
+
+[node name="RaycastRight" type="RayCast2D" parent="WallDetector"]
+position = Vector2(11, 0)
+target_position = Vector2(6, 0)
+collision_mask = 2
+
+[node name="AbyssDetector" type="Marker2D" parent="."]
+script = ExtResource("4_mgatb")
+
+[node name="RaycastLeft" type="RayCast2D" parent="AbyssDetector"]
+position = Vector2(-18, 0)
+target_position = Vector2(0, 32)
+collision_mask = 2
+
+[node name="RaycastRight" type="RayCast2D" parent="AbyssDetector"]
+position = Vector2(18, 0)
+target_position = Vector2(0, 32)
+collision_mask = 2
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-0.5, -15)
+shape = SubResource("RectangleShape2D_rexcb")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_yeqj1")
+
+[connection signal="wall_detected" from="WallDetector" to="." method="_on_wall_detector_wall_detected"]
+[connection signal="abyss_detected" from="AbyssDetector" to="." method="_on_abyss_detector_abyss_detected"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]

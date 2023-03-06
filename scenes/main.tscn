@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://bvlo3kydk0uap"]
+
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_mt8ha"]
+[ext_resource type="PackedScene" uid="uid://b10de47ydreta" path="res://scenes/Levels/Level1/level_1.tscn" id="2_ic4a4"]
+[ext_resource type="PackedScene" uid="uid://cgpy6k3fxdcna" path="res://entities/Player/player.tscn" id="3_ukyqa"]
+[ext_resource type="PackedScene" uid="uid://1by1lfh1ck8v" path="res://scenes/Levels/Level2/level_2.tscn" id="3_xpe8a"]
+[ext_resource type="PackedScene" uid="uid://bdrq8uh0khm64" path="res://scenes/Levels/Level3/level_3.tscn" id="4_lip7l"]
+[ext_resource type="Script" path="res://scenes/MainCamera.gd" id="5_mcyb1"]
+[ext_resource type="PackedScene" uid="uid://d2qojamy11whu" path="res://globals/hud/hud.tscn" id="7_sjrtd"]
+
+[sub_resource type="Gradient" id="Gradient_itij7"]
+offsets = PackedFloat32Array(0.464516, 0.683871, 0.825806)
+colors = PackedColorArray(1, 1, 1, 0, 0.899258, 0.899258, 0.899258, 0.752941, 0.834614, 0.834614, 0.834614, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ror45"]
+noise_type = 2
+frequency = 0.011
+fractal_type = 0
+cellular_jitter = 0.708
+cellular_return_type = 5
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xtu8x"]
+color_ramp = SubResource("Gradient_itij7")
+noise = SubResource("FastNoiseLite_ror45")
+
+[node name="Main" type="Node"]
+script = ExtResource("1_mt8ha")
+TileMaps = Array[PackedScene]([ExtResource("2_ic4a4"), ExtResource("3_xpe8a"), ExtResource("4_lip7l")])
+PlayerScene = ExtResource("3_ukyqa")
+metadata/movie_file = "F:\\godot4\\p\\scribbledae\\scrib.avi"
+
+[node name="Hudlayer" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="HUD" parent="Hudlayer" instance=ExtResource("7_sjrtd")]
+z_as_relative = false
+
+[node name="MainCamera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+script = ExtResource("5_mcyb1")
+lerp_weight = 0.5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.423529, 0.737255, 0.941176, 1)
+
+[node name="BackgroundNoise" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_xtu8x")
