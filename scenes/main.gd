@@ -8,6 +8,7 @@ extends Node
 @onready var canvas_layer_0 : CanvasLayer = $CanvasLayer
 @onready var background_noise : NoiseTexture2D = $CanvasLayer/BackgroundNoise.texture
 @onready var my_hud : HUD = $Hudlayer/HUD
+@onready var my_fx_spawner : FX = $FX
 
 var current_level : Level = null
 var current_level_index : int = 0
@@ -90,6 +91,8 @@ func attach_player_and_level() -> bool:
 	
 	current_level.connect("player_in_instadeath_area", self.on_insta_death_area_entered)
 	current_level.connect('completed', self.on_level_completed)
+	
+	my_fx_spawner.attach_current_level(current_level)
 	return true
 
 func next_level():

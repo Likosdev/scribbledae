@@ -8,10 +8,28 @@ signal completed
 signal player_in_instadeath_area
 
 func _ready():
-	assert(spawn_point != null and spawn_point is Marker2D, "Spawn Point Set Up is Bad")
-	assert(completion_area != null and completion_area is Area2D, "Completion Area Set Up is Bad")
-	assert(insta_death_area != null and insta_death_area is Area2D, "Insta Death Area Set Up is Bad")
-	completion_area.connect("body_entered", self.level_completed)
+	assert(
+			spawn_point != null and spawn_point is Marker2D, 
+			"Spawn Point Set Up is Bad"
+	)
+
+	assert(
+			completion_area != null and completion_area is Area2D, 
+			"Completion Area Set Up is Bad"
+	)
+
+	assert(
+			insta_death_area != null and insta_death_area is Area2D, 
+			"Insta Death Area Set Up is Bad"
+	)
+	
+	completion_area.connect(
+			"body_entered", self.level_completed
+	)
+	
+	insta_death_area.connect(
+			"body_entered", self._on_insta_death_area_body_entered
+	)
 
 
 func get_spawn_point():

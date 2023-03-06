@@ -95,4 +95,5 @@ func _on_hit_box_area_entered(area):
 	if area.owner is Player:
 		can_damage = false
 		emit_signal("defeated", self.position)
+		EventBus.emit_signal('enemie_defeated', self.position)
 		queue_free()

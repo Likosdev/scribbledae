@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bvlo3kydk0uap"]
+[gd_scene load_steps=15 format=3 uid="uid://bvlo3kydk0uap"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_mt8ha"]
 [ext_resource type="PackedScene" uid="uid://b10de47ydreta" path="res://scenes/Levels/Level1/level_1.tscn" id="2_ic4a4"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bdrq8uh0khm64" path="res://scenes/Levels/Level3/level_3.tscn" id="4_lip7l"]
 [ext_resource type="Script" path="res://scenes/MainCamera.gd" id="5_mcyb1"]
 [ext_resource type="PackedScene" uid="uid://d2qojamy11whu" path="res://globals/hud/hud.tscn" id="7_sjrtd"]
+[ext_resource type="Script" path="res://scenes/FX.gd" id="8_v56rs"]
+[ext_resource type="Script" path="res://FX/named_fx.gd" id="9_irlyx"]
+[ext_resource type="PackedScene" uid="uid://bifb53mhwxxuq" path="res://FX/poof_pfx.tscn" id="9_lt10l"]
 
 [sub_resource type="Gradient" id="Gradient_itij7"]
 offsets = PackedFloat32Array(0.464516, 0.683871, 0.825806)
@@ -23,9 +26,14 @@ cellular_return_type = 5
 color_ramp = SubResource("Gradient_itij7")
 noise = SubResource("FastNoiseLite_ror45")
 
+[sub_resource type="Resource" id="Resource_nmgcf"]
+script = ExtResource("9_irlyx")
+name = "poof"
+fx = ExtResource("9_lt10l")
+
 [node name="Main" type="Node"]
 script = ExtResource("1_mt8ha")
-TileMaps = Array[PackedScene]([ExtResource("2_ic4a4"), ExtResource("3_xpe8a"), ExtResource("4_lip7l")])
+TileMaps = Array[PackedScene]([ExtResource("3_xpe8a"), ExtResource("2_ic4a4"), ExtResource("4_lip7l")])
 PlayerScene = ExtResource("3_ukyqa")
 metadata/movie_file = "F:\\godot4\\p\\scribbledae\\scrib.avi"
 
@@ -62,3 +70,7 @@ offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("NoiseTexture2D_xtu8x")
+
+[node name="FX" type="Node" parent="."]
+script = ExtResource("8_v56rs")
+FXS = Array[ExtResource("9_irlyx")]([SubResource("Resource_nmgcf")])

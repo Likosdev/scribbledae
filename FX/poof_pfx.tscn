@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://bifb53mhwxxuq"]
+
+[ext_resource type="Texture2D" uid="uid://drs5jbymlcd0f" path="res://assets/shared/fx.png" id="1_p3fix"]
+[ext_resource type="Script" path="res://FX/poof_pfx.gd" id="2_13kjg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oiqck"]
+particles_animation = true
+particles_anim_h_frames = 8
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_6uxyd"]
+_data = [Vector2(0.464968, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qckn3"]
+curve = SubResource("Curve_6uxyd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xopxd"]
+lifetime_randomness = 0.04
+emission_shape = 1
+emission_sphere_radius = 16.0
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+flatness = 0.42
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 20.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = -17.75
+damping_min = 24.85
+damping_max = 98.82
+angle_min = -14.1
+angle_max = 17.0
+scale_min = 0.1
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_qckn3")
+anim_speed_min = 1.0
+anim_speed_max = 1.5
+attractor_interaction_enabled = false
+
+[node name="PoofPFX" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_oiqck")
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_xopxd")
+texture = ExtResource("1_p3fix")
+explosiveness = 1.0
+randomness = 0.51
+script = ExtResource("2_13kjg")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

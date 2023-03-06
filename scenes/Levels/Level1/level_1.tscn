@@ -75,5 +75,3 @@ position = Vector2(2638, 277)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="InstaDeathArea"]
 polygon = PackedVector2Array(-565, -45, -217, -63, -150, 1112, 5229, 1130, 5259, -1554, 5276, -1858, 7045, -1817, 7131, 616, 6080, 3006, -1599, 3413, -2244, 514)
-
-[connection signal="body_entered" from="InstaDeathArea" to="." method="_on_insta_death_area_body_entered"]

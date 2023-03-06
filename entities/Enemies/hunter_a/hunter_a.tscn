@@ -54,7 +54,7 @@ height = 22.0
 size = Vector2(19, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeqj1"]
-size = Vector2(20, 14)
+size = Vector2(16, 13)
 
 [node name="Hunter_a" type="CharacterBody2D"]
 collision_mask = 2
@@ -111,7 +111,7 @@ shape = SubResource("RectangleShape2D_rexcb")
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, 6)
+position = Vector2(0, 6.5)
 shape = SubResource("RectangleShape2D_yeqj1")
 
 [connection signal="wall_detected" from="WallDetector" to="." method="_on_wall_detector_wall_detected"]
