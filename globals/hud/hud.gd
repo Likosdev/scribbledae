@@ -7,6 +7,13 @@ class_name HUD
 @onready var heart_3 = $Heart_3
 
 
+func  _ready():
+	EventBus.connect("level_restart", self.reset)
+	
+	
+func reset():
+	on_player_health_changed(3)
+	
 
 func on_player_health_changed(health: int):
 	match health:

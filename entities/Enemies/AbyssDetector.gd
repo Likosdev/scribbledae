@@ -7,7 +7,7 @@ extends Marker2D
 
 signal abyss_detected(side: String)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not my_right_ray.is_colliding():
 		emit_signal("abyss_detected","right")
 	if not my_left_ray.is_colliding():

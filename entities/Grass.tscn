@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://g2svy52dspii"]
+
+[ext_resource type="Shader" path="res://wind_displacement.gdshader" id="1_m1vtv"]
+[ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="2_jdf8b"]
+[ext_resource type="Script" path="res://entities/Grass.gd" id="3_svok1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v83hu"]
+shader = ExtResource("1_m1vtv")
+shader_parameter/speed = 4.464
+shader_parameter/minStrength = 0.461
+shader_parameter/maxStrength = 0.616
+shader_parameter/strengthScale = 100.0
+shader_parameter/interval = 3.5
+shader_parameter/detail = 1.0
+shader_parameter/distortion = 0.0
+shader_parameter/heightOffset = 0.513
+shader_parameter/offset = 0.0
+
+[node name="Grass" type="Sprite2D"]
+z_index = -3
+material = SubResource("ShaderMaterial_v83hu")
+texture = ExtResource("2_jdf8b")
+hframes = 8
+vframes = 7
+frame = 31
+script = ExtResource("3_svok1")

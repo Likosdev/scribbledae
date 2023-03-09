@@ -1,34 +1,34 @@
 [gd_scene load_steps=13 format=3 uid="uid://bum4lxm6xqo04"]
 
-[ext_resource type="Texture2D" uid="uid://ctlrp2j2oi8ko" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_w3nnn"]
+[ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_w3nnn"]
 [ext_resource type="Script" path="res://entities/Enemies/hunter_a/hunter_a.gd" id="1_xgpdg"]
 [ext_resource type="Script" path="res://entities/Enemies/WallDetector.gd" id="3_yjub6"]
 [ext_resource type="Script" path="res://entities/Enemies/AbyssDetector.gd" id="4_mgatb"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1nexl"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqlrc"]
 atlas = ExtResource("1_w3nnn")
-region = Rect2(224, 64, 32, 32)
+region = Rect2(192, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6gpsr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_epd0d"]
 atlas = ExtResource("1_w3nnn")
-region = Rect2(0, 96, 32, 32)
+region = Rect2(224, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n8rip"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2xtv"]
 atlas = ExtResource("1_w3nnn")
-region = Rect2(160, 64, 32, 32)
+region = Rect2(128, 160, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fq4gg"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qd2a"]
 atlas = ExtResource("1_w3nnn")
-region = Rect2(192, 64, 32, 32)
+region = Rect2(160, 160, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_otwag"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1nexl")
+"texture": SubResource("AtlasTexture_wqlrc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6gpsr")
+"texture": SubResource("AtlasTexture_epd0d")
 }],
 "loop": true,
 "name": &"idle",
@@ -36,10 +36,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n8rip")
+"texture": SubResource("AtlasTexture_h2xtv")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fq4gg")
+"texture": SubResource("AtlasTexture_5qd2a")
 }],
 "loop": true,
 "name": &"walk",
@@ -47,11 +47,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gqfjh"]
-radius = 7.0
-height = 22.0
+radius = 5.0
+height = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rexcb"]
-size = Vector2(19, 10)
+size = Vector2(19, 1.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yeqj1"]
 size = Vector2(16, 13)
@@ -63,12 +63,12 @@ speed = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_otwag")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
-frame_progress = 0.799454
+frame_progress = 0.117188
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(0, 6)
 shape = SubResource("CapsuleShape2D_gqfjh")
 
 [node name="TransitionTimer" type="Timer" parent="."]
@@ -104,7 +104,7 @@ collision_mask = 2
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-0.5, -15)
+position = Vector2(-0.5, -10.25)
 shape = SubResource("RectangleShape2D_rexcb")
 
 [node name="HurtBox" type="Area2D" parent="."]

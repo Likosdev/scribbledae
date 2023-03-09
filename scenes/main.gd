@@ -10,6 +10,7 @@ extends Node
 @onready var my_hud : HUD = $Hudlayer/HUD
 @onready var my_fx_spawner : FX = $FX
 
+
 var current_level : Level = null
 var current_level_index : int = 0
 var current_player_instance : Player = null
@@ -112,10 +113,10 @@ func on_level_completed():
 	print("on level completed yayyyyy")
 	call_deferred("next_level") 
 
-func on_health_pickup_collected(position: Vector2):
+func on_health_pickup_collected(_position: Vector2):
 	current_player_instance.heal(1)
 
-func on_insta_death_area_entered(body : Player):
+func on_insta_death_area_entered(_body : Player):
 	reset_level()
 		
 func on_player_defeated():
@@ -123,8 +124,18 @@ func on_player_defeated():
 	
 func reset_level():
 	main_camera.stopped = true
-	await get_tree().create_timer(2).timeout
-	#current_player_instance.position = get_current_level_spawn_position()
-	#current_player_instance.heal(3)
-	get_tree().reload_current_scene()
+	
+	await get_tree().create_timer(1).timeout
+	
+	despawn_player()
+	despawn_level()
+	current_level = spawn_level_by_index(current_level_index)
+	current_player_instance = spawn_player()
+	attach_player_and_level()
+	attach_camera()
+
+
+	EventBus.emit_signal("level_restart")
+	main_camera.stopped = false
+
 	pass

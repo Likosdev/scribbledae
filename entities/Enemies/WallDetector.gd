@@ -9,7 +9,7 @@ class_name WallDetector
 signal wall_detected(side: String, what : PhysicsBody2D)
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if my_left_ray.is_colliding():
 		var what = my_left_ray.get_collider()
 		if what is Level:

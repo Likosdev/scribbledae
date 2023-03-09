@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvlo3kydk0uap"]
+[gd_scene load_steps=18 format=3 uid="uid://bvlo3kydk0uap"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_mt8ha"]
 [ext_resource type="PackedScene" uid="uid://b10de47ydreta" path="res://scenes/Levels/Level1/level_1.tscn" id="2_ic4a4"]
@@ -10,6 +10,24 @@
 [ext_resource type="Script" path="res://scenes/FX.gd" id="8_v56rs"]
 [ext_resource type="Script" path="res://FX/named_fx.gd" id="9_irlyx"]
 [ext_resource type="PackedScene" uid="uid://bifb53mhwxxuq" path="res://FX/poof_pfx.tscn" id="9_lt10l"]
+
+[sub_resource type="Gradient" id="Gradient_4akeu"]
+offsets = PackedFloat32Array(0.38255, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tmo8e"]
+noise_type = 3
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5kbvn"]
+width = 1920
+height = 1080
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.333
+normalize = false
+color_ramp = SubResource("Gradient_4akeu")
+noise = SubResource("FastNoiseLite_tmo8e")
 
 [sub_resource type="Gradient" id="Gradient_itij7"]
 offsets = PackedFloat32Array(0.464516, 0.683871, 0.825806)
@@ -23,6 +41,9 @@ cellular_jitter = 0.708
 cellular_return_type = 5
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xtu8x"]
+width = 160
+height = 90
+generate_mipmaps = false
 color_ramp = SubResource("Gradient_itij7")
 noise = SubResource("FastNoiseLite_ror45")
 
@@ -37,23 +58,66 @@ TileMaps = Array[PackedScene]([ExtResource("3_xpe8a"), ExtResource("2_ic4a4"), E
 PlayerScene = ExtResource("3_ukyqa")
 metadata/movie_file = "F:\\godot4\\p\\scribbledae\\scrib.avi"
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+unique_name_in_owner = true
+
 [node name="Hudlayer" type="CanvasLayer" parent="."]
-layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="Hudlayer"]
+visible = false
+top_level = true
+z_index = 2
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.121569, 1, 1, 0)
 
 [node name="HUD" parent="Hudlayer" instance=ExtResource("7_sjrtd")]
 z_as_relative = false
 
 [node name="MainCamera" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+process_callback = 0
 script = ExtResource("5_mcyb1")
 lerp_weight = 0.5
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = -2
+[node name="ParallaxBackground" type="ParallaxBackground" parent="MainCamera"]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="MainCamera/ParallaxBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.156863, 0.8, 0.945098, 1)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="MainCamera/ParallaxBackground"]
+motion_scale = Vector2(1.251, 1.251)
+motion_mirroring = Vector2(1920, 1080)
+
+[node name="TextureRect" type="TextureRect" parent="MainCamera/ParallaxBackground/ParallaxLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 962.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("NoiseTexture2D_5kbvn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+texture_filter = 2
+texture_repeat = 2
+clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -70,6 +134,7 @@ offset_bottom = 31.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("NoiseTexture2D_xtu8x")
+stretch_mode = 4
 
 [node name="FX" type="Node" parent="."]
 script = ExtResource("8_v56rs")

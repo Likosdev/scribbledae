@@ -7,6 +7,8 @@ class_name Level
 signal completed
 signal player_in_instadeath_area
 
+var wind_tile_coordinates = []
+
 func _ready():
 	assert(
 			spawn_point != null and spawn_point is Marker2D, 
@@ -23,6 +25,9 @@ func _ready():
 			"Insta Death Area Set Up is Bad"
 	)
 	
+
+	
+	
 	completion_area.connect(
 			"body_entered", self.level_completed
 	)
@@ -31,6 +36,9 @@ func _ready():
 			"body_entered", self._on_insta_death_area_body_entered
 	)
 
+func _physics_process(delta):
+	for t in wind_tile_coordinates:
+		get
 
 func get_spawn_point():
 	return self.spawn_point.position

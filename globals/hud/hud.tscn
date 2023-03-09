@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2qojamy11whu"]
 
-[ext_resource type="Texture2D" uid="uid://ctlrp2j2oi8ko" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_5xnf2"]
+[ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_5xnf2"]
 [ext_resource type="Script" path="res://globals/hud/hud.gd" id="1_oaukp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hn6kl"]
 atlas = ExtResource("1_5xnf2")
-region = Rect2(104, 112, 14, 13)
+region = Rect2(9, 17, 12, 11)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -17,7 +17,6 @@ grow_vertical = 2
 script = ExtResource("1_oaukp")
 
 [node name="Heart_1" type="TextureRect" parent="."]
-z_index = 1038
 layout_mode = 0
 offset_left = 6.0
 offset_top = 16.0
@@ -28,7 +27,6 @@ texture = SubResource("AtlasTexture_hn6kl")
 stretch_mode = 2
 
 [node name="Heart_2" type="TextureRect" parent="."]
-z_index = 1038
 layout_mode = 0
 offset_left = 48.0
 offset_top = 16.0
@@ -39,7 +37,6 @@ texture = SubResource("AtlasTexture_hn6kl")
 stretch_mode = 2
 
 [node name="Heart_3" type="TextureRect" parent="."]
-z_index = 1038
 layout_mode = 0
 offset_left = 90.0
 offset_top = 16.0

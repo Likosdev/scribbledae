@@ -78,10 +78,10 @@ func turn():
 	my_sprite.flip_h = direction.x < 0
 	change_state(EnemyStates.TURN)
 
-func _on_wall_detector_wall_detected(side, what):
+func _on_wall_detector_wall_detected(_side, _what):
 	turn_on_abyss_or_wall()
 
-func _on_abyss_detector_abyss_detected(side):
+func _on_abyss_detector_abyss_detected(_side):
 	turn_on_abyss_or_wall()
 
 
