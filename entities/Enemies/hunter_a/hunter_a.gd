@@ -34,21 +34,18 @@ func _ready():
 func _physics_process(delta):
 	velocity.y += gravity * delta
 	
-	if transitioning: return
+	if not transitioning: 
+		match enemy_state:
+			EnemyStates.MOVE:
+				velocity.x = direction.x * speed
+				move_and_slide()
+			EnemyStates.IDLE:
+				pass
+
+			EnemyStates.TURN:
+				change_state(EnemyStates.MOVE)
+
 	
-	
-	match enemy_state:
-		EnemyStates.MOVE:
-			velocity = direction * speed
-			
-
-		EnemyStates.IDLE:
-			pass
-
-		EnemyStates.TURN:
-			change_state(EnemyStates.MOVE)
-
-	move_and_slide()
 
 func change_state(new_state : EnemyStates):
 	transitioning = true
@@ -86,14 +83,12 @@ func _on_abyss_detector_abyss_detected(_side):
 
 
 func _on_hurt_box_area_entered(area):
-	print(area.owner)
 	if area.owner is Player:
 		turn()
 
 
-func _on_hit_box_area_entered(area):
-	if area.owner is Player:
-		can_damage = false
+func _on_hit_box_area_entered(area : Area2D):
+	if area.owner is Player and area.is_in_group('HurtBoxes'):
 		emit_signal("defeated", self.position)
 		EventBus.emit_signal('enemie_defeated', self.position)
 		queue_free()

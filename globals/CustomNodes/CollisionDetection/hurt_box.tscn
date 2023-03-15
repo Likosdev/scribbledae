@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg7frqktys2dh"]
+
+[ext_resource type="Script" path="res://globals/CustomNodes/CollisionDetection/hurt_box.gd" id="1_ga54v"]
+
+[node name="HurtBox" type="Area2D" groups=["HurtBoxes"]]
+position = Vector2(0, 10)
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_ga54v")
+metadata/_edit_group_ = true

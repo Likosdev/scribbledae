@@ -36,10 +36,6 @@ func _ready():
 			"body_entered", self._on_insta_death_area_body_entered
 	)
 
-func _physics_process(delta):
-	for t in wind_tile_coordinates:
-		get
-
 func get_spawn_point():
 	return self.spawn_point.position
 

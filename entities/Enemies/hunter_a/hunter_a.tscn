@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bum4lxm6xqo04"]
+[gd_scene load_steps=15 format=3 uid="uid://bum4lxm6xqo04"]
 
 [ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_w3nnn"]
 [ext_resource type="Script" path="res://entities/Enemies/hunter_a/hunter_a.gd" id="1_xgpdg"]
 [ext_resource type="Script" path="res://entities/Enemies/WallDetector.gd" id="3_yjub6"]
 [ext_resource type="Script" path="res://entities/Enemies/AbyssDetector.gd" id="4_mgatb"]
+[ext_resource type="PackedScene" uid="uid://b8fc71tw3xgiu" path="res://globals/CustomNodes/CollisionDetection/hit_box.tscn" id="5_ku8q3"]
+[ext_resource type="PackedScene" uid="uid://cg7frqktys2dh" path="res://globals/CustomNodes/CollisionDetection/hurt_box.tscn" id="6_qf4v0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wqlrc"]
 atlas = ExtResource("1_w3nnn")
@@ -47,28 +49,29 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gqfjh"]
-radius = 5.0
+radius = 4.0
+height = 8.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2gkxk"]
+radius = 2.0
 height = 14.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rexcb"]
-size = Vector2(19, 1.5)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gwgol"]
+radius = 7.0
+height = 20.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yeqj1"]
-size = Vector2(16, 13)
-
-[node name="Hunter_a" type="CharacterBody2D"]
+[node name="Hunter_a" type="CharacterBody2D" groups=["hurtables", "hurters"]]
 collision_mask = 2
 script = ExtResource("1_xgpdg")
 speed = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_otwag")
-animation = &"walk"
+animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.117188
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
+position = Vector2(0, 9)
 shape = SubResource("CapsuleShape2D_gqfjh")
 
 [node name="TransitionTimer" type="Timer" parent="."]
@@ -100,19 +103,21 @@ position = Vector2(18, 0)
 target_position = Vector2(0, 32)
 collision_mask = 2
 
-[node name="HitBox" type="Area2D" parent="."]
-collision_layer = 4
+[node name="HitBox" parent="." instance=ExtResource("5_ku8q3")]
+position = Vector2(0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-0.5, -10.25)
-shape = SubResource("RectangleShape2D_rexcb")
+position = Vector2(0, -8)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_2gkxk")
 
-[node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 4
+[node name="HurtBox" parent="." instance=ExtResource("6_qf4v0")]
+position = Vector2(0, -8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, 6.5)
-shape = SubResource("RectangleShape2D_yeqj1")
+position = Vector2(0, 10)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gwgol")
 
 [connection signal="wall_detected" from="WallDetector" to="." method="_on_wall_detector_wall_detected"]
 [connection signal="abyss_detected" from="AbyssDetector" to="." method="_on_abyss_detector_abyss_detected"]

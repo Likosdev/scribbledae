@@ -28,7 +28,7 @@ func get_fx_by_name(p_name : String) -> NamedFX:
 
 func spawn_fx_by_name(p_name:String, p_position:Vector2):
 	var named_fx = get_fx_by_name(p_name)
-	print(named_fx.name)
+
 	if current_level:
 		var fx_instance = named_fx.fx.instantiate()
 		fx_instance.position = p_position
