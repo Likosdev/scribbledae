@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://d05r20voo341a"]
 
-[ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_uckma"]
 [ext_resource type="Script" path="res://entities/Enemies/path_follower/path_follow_enemy.gd" id="1_vmb3r"]
+[ext_resource type="Texture2D" uid="uid://c6g7knelun0ng" path="res://assets/shared/scribbledae_new_tiles_singles.png" id="2_4y3vk"]
 [ext_resource type="PackedScene" uid="uid://b8fc71tw3xgiu" path="res://globals/CustomNodes/CollisionDetection/hit_box.tscn" id="3_ckin4"]
 [ext_resource type="PackedScene" uid="uid://cg7frqktys2dh" path="res://globals/CustomNodes/CollisionDetection/hurt_box.tscn" id="4_2c1jb"]
 
@@ -12,42 +12,67 @@ _data = {
 point_count = 10
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fx1wo"]
-radius = 3.0
+radius = 1.48299
 height = 16.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3u1aw"]
-radius = 9.0
-height = 20.0
+radius = 5.56021
+height = 15.3663
 
 [sub_resource type="Animation" id="Animation_oibf8"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PathFollow2D/Sprite2D:position")
+tracks/0/path = NodePath("PathFollow2D/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PathFollow2D/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_p6cxo"]
 resource_name = "float"
+length = 0.4
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PathFollow2D/Sprite2D:position")
-tracks/0/interp = 2
+tracks/0/path = NodePath("PathFollow2D/Sprite2D:frame")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 3, 4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PathFollow2D/Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-16, 0), Vector2(16, -16), Vector2(-16, 0)]
+"values": [-0.279253, 0.279253]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sgj8b"]
@@ -64,13 +89,14 @@ script = ExtResource("1_vmb3r")
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D" groups=["hurtables", "hurters"]]
-texture = ExtResource("1_uckma")
+position = Vector2(-16, 0)
+texture = ExtResource("2_4y3vk")
 hframes = 8
-vframes = 7
-frame = 46
+vframes = 3
+frame = 3
 
 [node name="HitBox" parent="PathFollow2D/Sprite2D" instance=ExtResource("3_ckin4")]
-position = Vector2(0, 4)
+position = Vector2(-4.19095e-09, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Sprite2D/HitBox"]
 position = Vector2(0, -10)
@@ -78,7 +104,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_fx1wo")
 
 [node name="HurtBox" parent="PathFollow2D/Sprite2D" instance=ExtResource("4_2c1jb")]
-position = Vector2(0, 16)
+position = Vector2(-0.537398, 12.6377)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/Sprite2D/HurtBox"]
 position = Vector2(0, -7)

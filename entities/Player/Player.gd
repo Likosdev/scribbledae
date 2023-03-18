@@ -176,8 +176,8 @@ func my_process_new(delta :float):
 			else my_sprite.flip_h
 	
 	move_and_slide()
-	display_state_and_velocity()
-	my_sprite.position= Vector2(roundi(my_sprite.position.x), roundi(my_sprite.position.y))
+	# display_state_and_velocity()
+	# dmy_sprite.position= Vector2(roundi(my_sprite.position.x), roundi(my_sprite.position.y))
 
 
 func display_state_and_velocity():

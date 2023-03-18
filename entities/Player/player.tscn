@@ -228,21 +228,22 @@ _data = {
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cr8x"]
 radius = 3.0
-height = 22.0
+height = 16.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dejd2"]
 radius = 1.0
-height = 16.0
+height = 18.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jo8b1"]
 radius = 2.0
-height = 12.0
+height = 14.0
 
 [node name="Player" type="CharacterBody2D"]
 texture_filter = 1
 texture_repeat = 1
 collision_mask = 2
 floor_max_angle = 0.820305
+floor_snap_length = 5.0
 script = ExtResource("1_tqwxo")
 KNOCKBACK_STRENGTH = -400
 I_TIME = 0.45
@@ -282,6 +283,7 @@ libraries = {
 position = Vector2(0, -5)
 
 [node name="DebugStateLabelContainer" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -20.0
@@ -318,7 +320,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_2cr8x")
 
 [node name="HitBox" parent="." instance=ExtResource("4_37t15")]
-position = Vector2(0, -6)
+position = Vector2(0, -4)
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]

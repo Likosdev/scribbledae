@@ -1,0 +1,26 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://do4cdk532qgqo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8p4ph"]
+bg_color = Color(1, 1, 1, 1)
+skew = Vector2(0.05, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_color = Color(0, 0, 0, 0.152941)
+shadow_size = 1
+shadow_offset = Vector2(5.943, -5.015)
+anti_aliasing_size = 1.0
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_8p4ph")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)

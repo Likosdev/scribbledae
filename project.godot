@@ -13,7 +13,6 @@ config_version=5
 config/name="scribbledae"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
-run/max_fps=60
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
@@ -24,10 +23,11 @@ Globals="*res://globals/GLOBALS.gd"
 
 [display]
 
-window/size/extend_to_title=true
-window/dpi/allow_hidpi=false
-window/vsync/vsync_mode=0
-window/stretch/mode="canvas_items"
+window/size/viewport_width=768
+window/size/viewport_height=432
+window/size/mode=4
+window/size/resizable=false
+window/per_pixel_transparency/allowed=true
 
 [editor]
 
@@ -73,4 +73,11 @@ interact={
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_s3tc_bptc=false
+textures/default_filters/use_nearest_mipmap_filter=true
+textures/default_filters/anisotropic_filtering_level=0
+anti_aliasing/screen_space_roughness_limiter/enabled=false
+textures/decals/filter=0
+textures/light_projectors/filter=0
+2d/sdf/scale=2
+textures/canvas_textures/default_texture_filter=3

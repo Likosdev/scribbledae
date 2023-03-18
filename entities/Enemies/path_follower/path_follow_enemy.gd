@@ -18,6 +18,6 @@ func _physics_process(delta):
 	my_path_follower.progress += delta * SPEED
 
 
-func _on_hit_box_area_entered(area):
+func _on_hit_box_area_entered(_area):
 	EventBus.emit_signal('enemie_defeated', my_sprite.global_position) 
 	queue_free()

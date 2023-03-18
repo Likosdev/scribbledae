@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7v6d2"]
 atlas = ExtResource("2_qy11v")
-region = Rect2(35.5655, 7, 24.6574, 20.3027)
+region = Rect2(9, 17, 12, 11)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_26dlb"]
 

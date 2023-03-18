@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhsmchb3s5oa2"]
+
+[ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_bv4gv"]
+
+[node name="Burger" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_bv4gv")
+hframes = 8
+vframes = 7
+frame = 1

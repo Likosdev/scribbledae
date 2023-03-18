@@ -38,7 +38,6 @@ fx = ExtResource("9_lt10l")
 script = ExtResource("1_mt8ha")
 TileMaps = Array[PackedScene]([ExtResource("3_xpe8a"), ExtResource("2_ic4a4"), ExtResource("4_lip7l")])
 PlayerScene = ExtResource("3_ukyqa")
-metadata/movie_file = "F:\\godot4\\p\\scribbledae\\scrib.avi"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 unique_name_in_owner = true
@@ -61,10 +60,13 @@ color = Color(0.121569, 1, 1, 0)
 z_as_relative = false
 
 [node name="MainCamera" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-process_callback = 0
+position = Vector2(1, 0)
+zoom = Vector2(3, 3)
+editor_draw_limits = true
+editor_draw_drag_margin = true
 script = ExtResource("5_mcyb1")
-lerp_weight = 0.5
+lerp_weight = 0.99
+metadata/_edit_group_ = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="MainCamera"]
 

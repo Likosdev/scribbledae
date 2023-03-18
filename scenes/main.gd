@@ -10,7 +10,6 @@ extends Node
 @onready var my_screen_fader = $Hudlayer/ScreenFader
 @onready var my_fx_spawner : FX = $FX
 
-
 var current_level : Level = null
 var current_level_index : int = 0
 var current_player_instance : Player = null
@@ -58,6 +57,7 @@ func get_current_level_spawn_position() -> Vector2:
 		return Vector2.ZERO
 
 func init_run():
+	EventBus.connect("player_defeated", self.on_player_defeated)
 	my_screen_fader.color = Color.BLACK
 	current_level = spawn_level_by_index(current_level_index)
 	current_player_instance = spawn_player()
@@ -80,7 +80,7 @@ func fade_out():
 	await TW.finished
 	return true
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	match current_game_state:
 		GameState.loading:
 			pass
@@ -102,7 +102,7 @@ func attach_player_and_level() -> bool:
 	current_player_instance.connect(
 			'health_changed',my_hud.on_player_health_changed 
 	)
-	EventBus.connect("player_defeated", self.on_player_defeated)
+	
 	
 	current_level.connect("player_in_instadeath_area", self.on_insta_death_area_entered)
 	current_level.connect('completed', self.on_level_completed)
@@ -134,7 +134,7 @@ func on_insta_death_area_entered(_body : Player):
 	await reset_level()
 	await fade_in()
 	
-func on_player_defeated(pos : Vector2):
+func on_player_defeated(_pos : Vector2):
 	await fade_out()
 	await reset_level()
 	await fade_in()
