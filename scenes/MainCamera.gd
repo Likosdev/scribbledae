@@ -13,5 +13,5 @@ func set_target_player(player:Player):
 
 func _physics_process(_delta):
 	if target_player and not stopped:
-		self.position = lerp(self.position, target_player.position, lerp_weight)
+		self.position =  target_player.global_position
 		

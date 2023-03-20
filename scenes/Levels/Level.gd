@@ -1,3 +1,4 @@
+@tool
 extends TileMap
 class_name Level
 
@@ -7,9 +8,8 @@ class_name Level
 signal completed
 signal player_in_instadeath_area
 
-var wind_tile_coordinates = []
-
 func _ready():
+	# EDITOR CODE
 	assert(
 			spawn_point != null and spawn_point is Marker2D, 
 			"Spawn Point Set Up is Bad"
@@ -27,7 +27,10 @@ func _ready():
 	
 
 	
-	
+	if Engine.is_editor_hint():
+		return
+
+	# GAME CODE
 	completion_area.connect(
 			"body_entered", self.level_completed
 	)
@@ -37,14 +40,33 @@ func _ready():
 	)
 
 func get_spawn_point():
+	if Engine.is_editor_hint(): return
 	return self.spawn_point.position
 
 
 func level_completed(body):
+	if Engine.is_editor_hint(): return
 	if body is Player:
 		print("level completed")
 		emit_signal("completed")
 
 
 func _on_insta_death_area_body_entered(body):
+	if Engine.is_editor_hint(): return
 	emit_signal("player_in_instadeath_area", body)
+
+
+func _get_configuration_warnings():
+	var warnings : Array[String] = []
+	var found_completion = completion_area !=  null
+	var found_spawnpoint = spawn_point !=  null
+	var found_instadeath = insta_death_area !=  null
+	
+	if not found_completion:
+		warnings.append("No completion area set up")
+	if not found_spawnpoint:
+		warnings.append("No spawnpoint set")
+	if not insta_death_area:
+		warnings.append("No instadeath area set up")
+		
+	return warnings

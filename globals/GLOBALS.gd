@@ -4,3 +4,13 @@ extends Node
 
 const GROUP_NAME_HITBOXES = "HitBoxes"
 const GROUP_NAME_HURTBOXES = "HurtBoxes"
+
+const DATA_LABEL_BURGERS = "HAMBURGERS"
+const DATA_LABEL_HEALTH = "HEALTH"
+const DATA_LABEL_POINTS = "POINTS"
+
+const PlayerData : Dictionary =  {
+	DATA_LABEL_BURGERS: 0,
+	DATA_LABEL_HEALTH: 3,
+	DATA_LABEL_POINTS: 0
+}

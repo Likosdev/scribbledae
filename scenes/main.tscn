@@ -11,42 +11,42 @@
 [ext_resource type="Script" path="res://FX/named_fx.gd" id="9_irlyx"]
 [ext_resource type="PackedScene" uid="uid://bifb53mhwxxuq" path="res://FX/poof_pfx.tscn" id="9_lt10l"]
 
-[sub_resource type="Gradient" id="Gradient_4akeu"]
-offsets = PackedFloat32Array(0.38255, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_tmo8e"]
-noise_type = 3
-fractal_type = 0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5kbvn"]
-width = 1920
-height = 1080
-generate_mipmaps = false
-seamless = true
-seamless_blend_skirt = 0.333
-normalize = false
-color_ramp = SubResource("Gradient_4akeu")
-noise = SubResource("FastNoiseLite_tmo8e")
-
 [sub_resource type="Resource" id="Resource_nmgcf"]
 script = ExtResource("9_irlyx")
 name = "poof"
 fx = ExtResource("9_lt10l")
+
+[sub_resource type="Gradient" id="Gradient_4akeu"]
+offsets = PackedFloat32Array(0.228487, 0.724036)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.305882)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tmo8e"]
+seed = 1337
+frequency = 0.006
+fractal_type = 0
+fractal_octaves = 2
+fractal_weighted_strength = 0.58
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5kbvn"]
+width = 960
+height = 540
+generate_mipmaps = false
+seamless = true
+seamless_blend_skirt = 0.5
+color_ramp = SubResource("Gradient_4akeu")
+noise = SubResource("FastNoiseLite_tmo8e")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_mt8ha")
 TileMaps = Array[PackedScene]([ExtResource("3_xpe8a"), ExtResource("2_ic4a4"), ExtResource("4_lip7l")])
 PlayerScene = ExtResource("3_ukyqa")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
+[node name="Hudlayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 
-[node name="Hudlayer" type="CanvasLayer" parent="."]
-
 [node name="ScreenFader" type="ColorRect" parent="Hudlayer"]
+unique_name_in_owner = true
 top_level = true
-z_index = 2
 z_as_relative = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,21 +54,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
-color = Color(0.121569, 1, 1, 0)
+color = Color(0.992157, 0.803922, 1, 0)
 
 [node name="HUD" parent="Hudlayer" instance=ExtResource("7_sjrtd")]
+unique_name_in_owner = true
 z_as_relative = false
+offset_right = -960.0
+offset_bottom = -540.0
+
+[node name="FX" type="Node" parent="."]
+script = ExtResource("8_v56rs")
+FXS = Array[ExtResource("9_irlyx")]([SubResource("Resource_nmgcf")])
 
 [node name="MainCamera" type="Camera2D" parent="."]
-position = Vector2(1, 0)
-zoom = Vector2(3, 3)
-editor_draw_limits = true
-editor_draw_drag_margin = true
+unique_name_in_owner = true
+skew = 0.47822
+zoom = Vector2(2, 2)
+drag_left_margin = 0.05
+drag_top_margin = 0.05
+drag_right_margin = 0.05
+drag_bottom_margin = 0.05
 script = ExtResource("5_mcyb1")
-lerp_weight = 0.99
 metadata/_edit_group_ = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="MainCamera"]
+layer = -1
+scroll_offset = Vector2(80, 45)
 
 [node name="ColorRect" type="ColorRect" parent="MainCamera/ParallaxBackground"]
 anchors_preset = 15
@@ -79,20 +90,16 @@ grow_vertical = 2
 color = Color(0.156863, 0.8, 0.945098, 1)
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="MainCamera/ParallaxBackground"]
-motion_scale = Vector2(1.251, 1.251)
+motion_scale = Vector2(1.5, 1.2)
 motion_mirroring = Vector2(1920, 1080)
 
 [node name="TextureRect" type="TextureRect" parent="MainCamera/ParallaxBackground/ParallaxLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = 962.0
-offset_bottom = 540.0
-grow_horizontal = 2
-grow_vertical = 2
+texture_filter = 1
+texture_repeat = 1
+offset_right = 1920.0
+offset_bottom = 1080.0
 texture = SubResource("NoiseTexture2D_5kbvn")
+stretch_mode = 1
 
-[node name="FX" type="Node" parent="."]
-script = ExtResource("8_v56rs")
-FXS = Array[ExtResource("9_irlyx")]([SubResource("Resource_nmgcf")])
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"

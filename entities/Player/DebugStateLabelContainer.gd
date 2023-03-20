@@ -11,7 +11,7 @@ var state_to_label_map := {
 	'double_jump':'STATE: DOUBLE_JUMP',
 	'floating':'STATE: FLOATING',
 	'falling':'STATE: FALLING',
-	'defeated': 'STATE: DED LOL'
+	'defeated': 'STATE: DED'
 }
 
 

@@ -4,11 +4,11 @@ extends Node
 @export var PlayerScene : PackedScene
 # Called when the node enters the scene tree for the first time.
 
-@onready var main_camera : MainCamera = $MainCamera
-
-@onready var my_hud : HUD = $Hudlayer/HUD
-@onready var my_screen_fader = $Hudlayer/ScreenFader
+@onready var main_camera : MainCamera = %MainCamera
+@onready var my_hud : HUD = %HUD
+@onready var my_screen_fader = %ScreenFader
 @onready var my_fx_spawner : FX = $FX
+
 
 var current_level : Level = null
 var current_level_index : int = 0

@@ -1,12 +1,15 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://dw8wfnhpxqqy5"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://dw8wfnhpxqqy5"]
 
 [ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_t217x"]
 [ext_resource type="PackedScene" uid="uid://g2svy52dspii" path="res://entities/Grass.tscn" id="2_osi7a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sy6h0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o5y0a"]
 resource_name = "BaseTiles"
 texture = ExtResource("1_t217x")
 texture_region_size = Vector2i(32, 32)
+use_texture_padding = false
 3:0/0 = 0
 3:0/0/terrain_set = 0
 3:0/0/terrain = 0
@@ -30,7 +33,7 @@ texture_region_size = Vector2i(32, 32)
 5:0/0/terrain = 0
 5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:0/0/physics_layer_0/angular_velocity = 0.0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -14, -16, -14, -16, 16, 16, 16)
 5:0/0/terrains_peering_bit/right_side = 0
 5:0/0/terrains_peering_bit/bottom_right_corner = 0
 5:0/0/terrains_peering_bit/bottom_side = 0
@@ -49,25 +52,12 @@ texture_region_size = Vector2i(32, 32)
 6:0/0/terrains_peering_bit/left_side = 0
 6:0/0/terrains_peering_bit/top_side = 0
 6:0/0/terrains_peering_bit/top_right_corner = 0
-7:0/0 = 0
-7:0/0/terrain_set = 0
-7:0/0/terrain = 0
-7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-7:0/0/physics_layer_0/angular_velocity = 0.0
-7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-7:0/0/terrains_peering_bit/right_side = 0
-7:0/0/terrains_peering_bit/bottom_right_corner = 0
-7:0/0/terrains_peering_bit/bottom_side = 0
-7:0/0/terrains_peering_bit/bottom_left_corner = 0
-7:0/0/terrains_peering_bit/left_side = 0
-7:0/0/terrains_peering_bit/top_left_corner = 0
-7:0/0/terrains_peering_bit/top_side = 0
 0:1/0 = 0
 0:1/0/terrain_set = 0
 0:1/0/terrain = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(1.5, -16, 16, -16, 16, 16, 1.5, 16)
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(1.5, -13.5, 16, -14, 16, 16, 1.5, 16)
 0:1/0/terrains_peering_bit/right_side = 0
 0:1/0/terrains_peering_bit/bottom_right_corner = 0
 0:1/0/terrains_peering_bit/bottom_side = 0
@@ -76,7 +66,7 @@ texture_region_size = Vector2i(32, 32)
 1:1/0/terrain = 0
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(16, -14, -16, -14, -16, 16, 16, 16)
 1:1/0/terrains_peering_bit/right_side = 0
 1:1/0/terrains_peering_bit/bottom_right_corner = 0
 1:1/0/terrains_peering_bit/bottom_side = 0
@@ -87,7 +77,7 @@ texture_region_size = Vector2i(32, 32)
 2:1/0/terrain = 0
 2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:1/0/physics_layer_0/angular_velocity = 0.0
-2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1.5, -16, -16, -16, -16, 16, -1.5, 16)
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1.5, -13.5, -16, -14, -16, 16, -1.5, 16)
 2:1/0/terrains_peering_bit/bottom_side = 0
 2:1/0/terrains_peering_bit/bottom_left_corner = 0
 2:1/0/terrains_peering_bit/left_side = 0
@@ -161,10 +151,10 @@ texture_region_size = Vector2i(32, 32)
 6:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:3/0/physics_layer_0/angular_velocity = 0.0
 6:3/0/custom_data_0 = true
-7:3/0 = 0
-7:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-7:3/0/physics_layer_0/angular_velocity = 0.0
-7:3/0/custom_data_0 = true
+7:0/0 = 0
+7:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+7:0/0/physics_layer_0/angular_velocity = 0.0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_ifkrn"]
 scenes/1/scene = ExtResource("2_osi7a")
@@ -173,6 +163,7 @@ scenes/1/scene = ExtResource("2_osi7a")
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 2
 physics_layer_0/collision_mask = 3
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_sy6h0")
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Geometry"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)

@@ -13,8 +13,9 @@ config_version=5
 config/name="scribbledae"
 run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
-boot_splash/show_image=false
+boot_splash/image="res://assets/shared/scribbledae_new_tiles_singles_16.png"
 config/icon="res://icon.svg"
+boot_splash/minimum_display_time=1000
 
 [autoload]
 
@@ -23,15 +24,18 @@ Globals="*res://globals/GLOBALS.gd"
 
 [display]
 
-window/size/viewport_width=768
-window/size/viewport_height=432
-window/size/mode=4
-window/size/resizable=false
-window/per_pixel_transparency/allowed=true
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/vsync/vsync_mode=0
+window/stretch/mode="viewport"
 
 [editor]
 
 movie_writer/movie_file="F:/godot4/p/scribbledae/scrib.avi"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg")
 
 [input]
 
@@ -73,11 +77,7 @@ interact={
 
 [rendering]
 
-textures/vram_compression/import_s3tc_bptc=false
-textures/default_filters/use_nearest_mipmap_filter=true
 textures/default_filters/anisotropic_filtering_level=0
-anti_aliasing/screen_space_roughness_limiter/enabled=false
 textures/decals/filter=0
 textures/light_projectors/filter=0
-2d/sdf/scale=2
-textures/canvas_textures/default_texture_filter=3
+textures/canvas_textures/default_texture_filter=0

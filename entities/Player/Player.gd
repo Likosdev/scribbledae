@@ -50,11 +50,13 @@ const MAX_HEALTH := 3
 @onready var my_umbrella_sprite := $Umbrella
 @onready var my_umbrella_animation_player := $Umbrella/AnimationPlayer
 @onready var my_state_label_container := $DebugStateLabelContainer
-
+@onready var my_push_area := $PushArea
 
 
 signal health_changed(new_health : int)
 signal player_defeated
+
+
 
 func _physics_process(delta):
 	my_process_new(delta)
@@ -72,6 +74,7 @@ func my_process_new(delta :float):
 	
 	match state:
 		PlayerStates.DEFEATED:
+			my_animation_player.play("dead")
 			move_and_slide()
 			display_state_and_velocity()
 			
@@ -176,8 +179,8 @@ func my_process_new(delta :float):
 			else my_sprite.flip_h
 	
 	move_and_slide()
-	# display_state_and_velocity()
-	# dmy_sprite.position= Vector2(roundi(my_sprite.position.x), roundi(my_sprite.position.y))
+	display_state_and_velocity()
+	#my_sprite.position = Vector2(roundi(my_sprite.position.x), roundi(my_sprite.position.y))
 
 
 func display_state_and_velocity():
@@ -196,30 +199,32 @@ func take_damage():
 
 	if health == 0:
 		state = PlayerStates.DEFEATED
+		$CollisionShape2D.set_deferred("disabled", true)
 		await TW.finished
 		EventBus.emit_signal("player_defeated", self.global_position)
-		$CollisionShape2D.disabled = true
-		
-		
-	await TW.finished
-	invulnerable = false
+	else:	
+		await TW.finished
+		invulnerable = false
 
 func heal(amount: int):
 	health = clampi(health + amount,0, MAX_HEALTH)
 	emit_signal("health_changed", health)
 
 func apply_knockback(dir : Vector2 = Vector2.ZERO):
-	if not knockback and not state == PlayerStates.DEFEATED:
-			knockback = true
-			state = PlayerStates.FALLING
-			my_knockback_timer.start()
+	if not knockback and not state == PlayerStates.DEFEATED and not invulnerable:
+		print("KNOCKBACK")
+		knockback = true
+		state = PlayerStates.FALLING
+		my_knockback_timer.start()
 
-			dir *= KNOCKBACK_STRENGTH
-			velocity.y = -dir.y if not is_on_floor() else dir.y
-			velocity.x = -dir.x if is_on_floor() else velocity.x
+		dir *= KNOCKBACK_STRENGTH
+		velocity.y = -dir.y if not is_on_floor() else dir.y
+		velocity.x = -dir.x if is_on_floor() else velocity.x
 
-			await my_knockback_timer.timeout
-			knockback = false
+		await my_knockback_timer.timeout
+		print("knockback done")
+		if state == PlayerStates.DEFEATED: return
+		knockback = false
 
 	
 
@@ -228,7 +233,7 @@ func _on_hurt_box_area_entered(area : Area2D):
 	print(area.owner)
 	var is_hurtable = area.is_in_group(Globals.GROUP_NAME_HITBOXES)
 	if is_hurtable:
-		var dir = Vector2(self.position - area.global_position).normalized()
+		var dir = Vector2(self.global_position - area.global_position).normalized()
 		apply_knockback( dir)
 
 
@@ -236,6 +241,14 @@ func _on_hit_box_area_entered(area : Area2D):
 	print(area.owner)
 	var is_hurter = area.is_in_group(Globals.GROUP_NAME_HURTBOXES)
 	if is_hurter:
-		var dir = Vector2(self.position - area.global_position).normalized()
+		var dir = Vector2(self.global_position - area.global_position).normalized()
 		apply_knockback( dir)
 		take_damage()
+
+
+func _on_push_area_body_entered(body):
+	print("BODY ENTERED")
+	var burger = body as Burger
+	if burger:
+		print("BURGER COLLISION")
+		burger.push(-(self.global_position - burger.global_position).normalized())

@@ -2,14 +2,9 @@
 
 [ext_resource type="Script" path="res://entities/Enemies/path_follower/path_follow_enemy.gd" id="1_vmb3r"]
 [ext_resource type="Texture2D" uid="uid://c6g7knelun0ng" path="res://assets/shared/scribbledae_new_tiles_singles.png" id="2_4y3vk"]
+[ext_resource type="PackedScene" uid="uid://bifb53mhwxxuq" path="res://FX/poof_pfx.tscn" id="2_oxtkc"]
 [ext_resource type="PackedScene" uid="uid://b8fc71tw3xgiu" path="res://globals/CustomNodes/CollisionDetection/hit_box.tscn" id="3_ckin4"]
 [ext_resource type="PackedScene" uid="uid://cg7frqktys2dh" path="res://globals/CustomNodes/CollisionDetection/hurt_box.tscn" id="4_2c1jb"]
-
-[sub_resource type="Curve2D" id="Curve2D_1s3vj"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 32, 32, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, -32, 0, 0, 0, 0, 0, -31.8324, 32.0004, 0, 0, 0, 0, 0.167553, 32.0004)
-}
-point_count = 10
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fx1wo"]
 radius = 1.48299
@@ -82,10 +77,11 @@ _data = {
 }
 
 [node name="PathFollowEnemy" type="Path2D"]
-curve = SubResource("Curve2D_1s3vj")
 script = ExtResource("1_vmb3r")
+death_effect = ExtResource("2_oxtkc")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(-53, -73)
 rotates = false
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D" groups=["hurtables", "hurters"]]
