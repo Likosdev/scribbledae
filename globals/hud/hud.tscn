@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2qojamy11whu"]
+[gd_scene load_steps=7 format=3 uid="uid://d2qojamy11whu"]
 
 [ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_5xnf2"]
 [ext_resource type="Script" path="res://globals/hud/hud.gd" id="1_oaukp"]
@@ -8,6 +8,10 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_hn6kl"]
 atlas = ExtResource("1_5xnf2")
 region = Rect2(9, 17, 12, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltmm5"]
+atlas = ExtResource("1_5xnf2")
+region = Rect2(36, 7, 24, 20)
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -87,3 +91,23 @@ text = "[b]Hubbedo:[/b]"
 custom_minimum_size = Vector2(500, 76)
 layout_mode = 2
 text = "Lorem Ipsum Dolor Sit Amet"
+
+[node name="PickupsContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+offset_left = 6.0
+offset_top = 66.0
+offset_right = 128.0
+offset_bottom = 112.0
+
+[node name="Burger" type="TextureRect" parent="PickupsContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ltmm5")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="PickupsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "x 0"

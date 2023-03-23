@@ -33,6 +33,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var jumping := false
 var floating := false
 var knockback := false
+var has_burger := false
 var jumps_left := 2
 var float_threshold := 0.5
 var invulnerable := false
@@ -50,13 +51,13 @@ const MAX_HEALTH := 3
 @onready var my_umbrella_sprite := $Umbrella
 @onready var my_umbrella_animation_player := $Umbrella/AnimationPlayer
 @onready var my_state_label_container := $DebugStateLabelContainer
-@onready var my_push_area := $PushArea
-
+@onready var my_burger_marker := %Burger
 
 signal health_changed(new_health : int)
 signal player_defeated
 
-
+func _ready():
+	EventBus.pickup_collected.connect(self.on_pickup_collected)
 
 func _physics_process(delta):
 	my_process_new(delta)
@@ -110,7 +111,7 @@ func my_process_new(delta :float):
 			if is_on_floor():
 				state = PlayerStates.IDLE
 			
-			if jump_held_delta > float_threshold and not knockback:
+			if not has_burger and jump_held_delta > float_threshold and not knockback:
 				state = PlayerStates.FLOATING
 				my_umbrella_animation_player.play("open")
 			elif Input.is_action_just_pressed("jump") and jumps_left: 
@@ -128,7 +129,7 @@ func my_process_new(delta :float):
 			if is_on_floor():
 				state = PlayerStates.IDLE
 			
-			if jump_held_delta > float_threshold / 2 and not knockback:
+			if not has_burger and jump_held_delta > float_threshold / 2 and not knockback:
 				state = PlayerStates.FLOATING
 				my_umbrella_animation_player.play("open")
 			
@@ -138,7 +139,7 @@ func my_process_new(delta :float):
 			my_animation_player.play('jump')
 
 		PlayerStates.FALLING:
-			if jump_held_delta > float_threshold / 3 and not knockback:
+			if not has_burger and jump_held_delta > float_threshold / 3 and not knockback:
 				state = PlayerStates.FLOATING
 				my_umbrella_animation_player.play("open")
 			elif jumps_left > 0 and Input.is_action_just_pressed("jump"):
@@ -174,6 +175,9 @@ func my_process_new(delta :float):
 	
 	if state == PlayerStates.DEFEATED: return
 	
+	if has_burger and Input.is_action_just_pressed("interact"):
+		handle_burger_loss()
+	
 	my_sprite.flip_h = direction < 0  \
 			if not state == PlayerStates.IDLE and direction \
 			else my_sprite.flip_h
@@ -195,6 +199,9 @@ func take_damage():
 	TW.tween_property(my_sprite, 'self_modulate', Color.RED, I_TIME  / 2)
 	TW.chain().tween_property(my_sprite, 'self_modulate', Color.WHITE, I_TIME / 2)
 	
+	if has_burger:
+		handle_burger_loss()
+	
 	emit_signal("health_changed", health)
 
 	if health == 0:
@@ -209,10 +216,11 @@ func take_damage():
 func heal(amount: int):
 	health = clampi(health + amount,0, MAX_HEALTH)
 	emit_signal("health_changed", health)
+	EventBus.player_healed.emit(1)
 
 func apply_knockback(dir : Vector2 = Vector2.ZERO):
 	if not knockback and not state == PlayerStates.DEFEATED and not invulnerable:
-		print("KNOCKBACK")
+
 		knockback = true
 		state = PlayerStates.FALLING
 		my_knockback_timer.start()
@@ -222,15 +230,27 @@ func apply_knockback(dir : Vector2 = Vector2.ZERO):
 		velocity.x = -dir.x if is_on_floor() else velocity.x
 
 		await my_knockback_timer.timeout
-		print("knockback done")
+
 		if state == PlayerStates.DEFEATED: return
 		knockback = false
 
-	
+func handle_burger_pickup():
+	has_burger = true
+	my_burger_marker.show()
 
+func handle_burger_deliver():
+	has_burger = false
+	my_burger_marker.hide()
+	
+func handle_burger_leave():
+	has_burger = false
+	my_burger_marker.hide()
+
+func handle_burger_loss():
+	handle_burger_leave()
+	EventBus.pickup_left.emit(self.position, Globals.PICKUP_NAME_BURGER)
 
 func _on_hurt_box_area_entered(area : Area2D):
-	print(area.owner)
 	var is_hurtable = area.is_in_group(Globals.GROUP_NAME_HITBOXES)
 	if is_hurtable:
 		var dir = Vector2(self.global_position - area.global_position).normalized()
@@ -238,7 +258,6 @@ func _on_hurt_box_area_entered(area : Area2D):
 
 
 func _on_hit_box_area_entered(area : Area2D):
-	print(area.owner)
 	var is_hurter = area.is_in_group(Globals.GROUP_NAME_HURTBOXES)
 	if is_hurter:
 		var dir = Vector2(self.global_position - area.global_position).normalized()
@@ -246,9 +265,11 @@ func _on_hit_box_area_entered(area : Area2D):
 		take_damage()
 
 
-func _on_push_area_body_entered(body):
-	print("BODY ENTERED")
-	var burger = body as Burger
-	if burger:
-		print("BURGER COLLISION")
-		burger.push(-(self.global_position - burger.global_position).normalized())
+func on_pickup_collected(_p_position: Vector2, pickup : String):
+	match pickup:
+		Globals.PICKUP_NAME_BURGER:
+			handle_burger_pickup()
+		Globals.PICKUP_NAME_HEALTH:
+			heal(1)
+
+	

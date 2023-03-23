@@ -1,29 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhsmchb3s5oa2"]
+[gd_scene load_steps=5 format=3 uid="uid://dhsmchb3s5oa2"]
 
 [ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="1_bv4gv"]
 [ext_resource type="Script" path="res://entities/Items/burger.gd" id="1_f7lhf"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tn67w"]
-friction = 0.44
-bounce = 0.15
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bs7a3"]
 
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_vp545"]
-length = 8.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_secjs"]
+radius = 7.0
+height = 20.0
 
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_m825s"]
-length = 11.0
-
-[sub_resource type="SeparationRayShape2D" id="SeparationRayShape2D_2iwmn"]
-length = 11.0
-
-[node name="Burger" type="RigidBody2D"]
-collision_layer = 8
-collision_mask = 10
-mass = 0.5
-physics_material_override = SubResource("PhysicsMaterial_tn67w")
-lock_rotation = true
+[node name="Burger" type="CharacterBody2D"]
+collision_layer = 256
+collision_mask = 2
 script = ExtResource("1_f7lhf")
-push_multiplier = 750.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_bv4gv")
@@ -31,25 +20,13 @@ hframes = 8
 vframes = 7
 frame = 1
 
-[node name="CollisionShape2DBottom" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
-shape = SubResource("SeparationRayShape2D_vp545")
+[node name="PickupArea" type="Area2D" parent="."]
 
-[node name="CollisionShape2DLeft" type="CollisionShape2D" parent="."]
-position = Vector2(-2, 8)
-rotation = 1.5708
-shape = SubResource("SeparationRayShape2D_m825s")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
+shape = SubResource("RectangleShape2D_bs7a3")
 
-[node name="CollisionShape2DRight" type="CollisionShape2D" parent="."]
-position = Vector2(2, 8)
-rotation = -1.5708
-shape = SubResource("SeparationRayShape2D_2iwmn")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_secjs")
+debug_color = Color(0.815686, 0.286275, 0.72549, 0.419608)
 
-[node name="Label" type="Label" parent="."]
-texture_filter = 4
-offset_left = -20.0
-offset_top = -31.0
-offset_right = 70.0
-offset_bottom = -5.0
-theme_override_font_sizes/font_size = 11
-text = "FORCE: "
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

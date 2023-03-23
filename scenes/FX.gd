@@ -6,12 +6,16 @@ class_name FX
 var current_level : Level = null
 
 func _ready():
-	EventBus.connect('enemie_defeated', on_enemy_defeated)
+	EventBus.enemie_defeated.connect(self.on_enemy_defeated)
+	EventBus.pickup_collected.connect(self.on_pickup_collected)
 
 
 func on_enemy_defeated(p_position : Vector2):
 	spawn_fx_by_name('poof', p_position)
 	
+
+func on_pickup_collected(p_position: Vector2, _pickup: String):
+	spawn_fx_by_name('poof', p_position)
 
 func attach_current_level(level: Level):
 	self.current_level = level

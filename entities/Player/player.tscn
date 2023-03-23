@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cgpy6k3fxdcna"]
+[gd_scene load_steps=21 format=3 uid="uid://cgpy6k3fxdcna"]
 
 [ext_resource type="Script" path="res://entities/Player/Player.gd" id="1_tqwxo"]
 [ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="2_65xhj"]
@@ -268,9 +268,6 @@ height = 18.0
 radius = 2.0
 height = 14.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkw3q"]
-size = Vector2(20, 7.5)
-
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 3
 floor_max_angle = 0.820305
@@ -299,6 +296,18 @@ hframes = 8
 vframes = 7
 frame = 50
 
+[node name="Burger" type="Marker2D" parent="Sprite2D"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, -11.009)
+
+[node name="BurgerSprite" type="Sprite2D" parent="Sprite2D/Burger"]
+position = Vector2(0, -4)
+texture = ExtResource("2_65xhj")
+hframes = 8
+vframes = 7
+frame = 1
+
 [node name="KnockbackTimer" type="Timer" parent="."]
 wait_time = 0.2
 
@@ -308,9 +317,6 @@ speed_scale = 1.5
 libraries = {
 "": SubResource("AnimationLibrary_qw7wr")
 }
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, -5)
 
 [node name="DebugStateLabelContainer" type="Control" parent="."]
 visible = false
@@ -365,14 +371,5 @@ position = Vector2(1, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jo8b1")
 
-[node name="PushArea" type="Area2D" parent="."]
-position = Vector2(0, 5)
-collision_layer = 8
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PushArea"]
-shape = SubResource("RectangleShape2D_qkw3q")
-
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
-[connection signal="body_entered" from="PushArea" to="." method="_on_push_area_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bvlo3kydk0uap"]
+[gd_scene load_steps=17 format=3 uid="uid://bvlo3kydk0uap"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_mt8ha"]
 [ext_resource type="PackedScene" uid="uid://b10de47ydreta" path="res://scenes/Levels/Level1/level_1.tscn" id="2_ic4a4"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://scenes/FX.gd" id="8_v56rs"]
 [ext_resource type="Script" path="res://FX/named_fx.gd" id="9_irlyx"]
 [ext_resource type="PackedScene" uid="uid://bifb53mhwxxuq" path="res://FX/poof_pfx.tscn" id="9_lt10l"]
+[ext_resource type="Script" path="res://scenes/SpawnHandler.gd" id="11_x6b4j"]
+[ext_resource type="PackedScene" uid="uid://dhsmchb3s5oa2" path="res://entities/Items/burger.tscn" id="12_c2y7c"]
 
 [sub_resource type="Resource" id="Resource_nmgcf"]
 script = ExtResource("9_irlyx")
@@ -103,3 +105,7 @@ stretch_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
+
+[node name="SpawnHandler" type="Node" parent="."]
+script = ExtResource("11_x6b4j")
+Burger_Scene = ExtResource("12_c2y7c")

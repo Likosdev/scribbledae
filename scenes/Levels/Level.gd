@@ -47,7 +47,6 @@ func get_spawn_point():
 func level_completed(body):
 	if Engine.is_editor_hint(): return
 	if body is Player:
-		print("level completed")
 		emit_signal("completed")
 
 
@@ -66,7 +65,7 @@ func _get_configuration_warnings():
 		warnings.append("No completion area set up")
 	if not found_spawnpoint:
 		warnings.append("No spawnpoint set")
-	if not insta_death_area:
+	if not found_instadeath:
 		warnings.append("No instadeath area set up")
 		
 	return warnings

@@ -8,7 +8,7 @@ extends Node
 @onready var my_hud : HUD = %HUD
 @onready var my_screen_fader = %ScreenFader
 @onready var my_fx_spawner : FX = $FX
-
+@onready var my_spawn_handler : SpawnHandler = $SpawnHandler 
 
 var current_level : Level = null
 var current_level_index : int = 0
@@ -57,7 +57,9 @@ func get_current_level_spawn_position() -> Vector2:
 		return Vector2.ZERO
 
 func init_run():
-	EventBus.connect("player_defeated", self.on_player_defeated)
+	EventBus.pickup_collected.connect(self.on_pickup_collected)
+	EventBus.player_defeated.connect(self.on_player_defeated)
+	EventBus.pickup_left.connect(self.on_pickup_left)
 	my_screen_fader.color = Color.BLACK
 	current_level = spawn_level_by_index(current_level_index)
 	current_player_instance = spawn_player()
@@ -66,6 +68,10 @@ func init_run():
 	await fade_in()
 	
 	current_game_state = GameState.running
+
+func on_pickup_collected(position: Vector2, pickup: String):
+	print("Pickup {} Collected at {}".format([pickup, position], '{}'))
+	
 
 func fade_in():
 	var TW = create_tween()
@@ -138,6 +144,12 @@ func on_player_defeated(_pos : Vector2):
 	await fade_out()
 	await reset_level()
 	await fade_in()
+	
+func on_pickup_left(position: Vector2, pickup: String):
+	match pickup:
+		Globals.PICKUP_NAME_BURGER:
+			my_spawn_handler.SpawnBurger(current_level, position)
+	
 	
 func reset_level():
 	main_camera.stopped = true

@@ -14,3 +14,7 @@ const PlayerData : Dictionary =  {
 	DATA_LABEL_HEALTH: 3,
 	DATA_LABEL_POINTS: 0
 }
+
+
+const PICKUP_NAME_BURGER := 'BURGER'
+const PICKUP_NAME_HEALTH := 'HEALTH'

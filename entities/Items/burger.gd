@@ -1,22 +1,20 @@
-extends RigidBody2D
+extends CharacterBody2D
 class_name Burger
 
-@export var push_multiplier := 10.0
+var pickable:=false
+var is_tweened:=false
 
-@onready var my_debug_label := $Label
- 
+func _ready():
+	await get_tree().create_timer(.5).timeout
+	
+	pickable = true
 
-func _physics_process(delta):
-	my_debug_label.text = "Velocity: {}".format([self.linear_velocity], '{}')
-	
-	
-func push(p_velocity : Vector2) -> void:
-	print("push")
-	print(p_velocity)
-	p_velocity.y = 0
-	var dir = (p_velocity * push_multiplier) + Vector2.UP
-	print("dir; " + str(dir))
-	apply_central_force(dir)
-	
-	
-	
+func _physics_process(_delta):
+	if is_tweened: return
+	self.velocity.y += 18.0
+	move_and_slide()
+
+func _on_pickup_area_body_entered(body):
+	if body is Player and pickable:
+		EventBus.pickup_collected.emit(self.position, Globals.PICKUP_NAME_BURGER)
+		queue_free()
