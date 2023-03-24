@@ -44,6 +44,9 @@ func tween_burger_to_mouth(burger : Burger):
 	grow()
 	
 
+func play_feed_sound():
+	Sounds.play_sound(Globals.SOUND_NAME_FEED, true)
+
 func grow():
 	var TW = create_tween().set_parallel().set_ease(Tween.EASE_IN_OUT)
 	TW.tween_property(
@@ -53,6 +56,7 @@ func grow():
 	TW.tween_property(
 			my_small_sprite, 'position', my_small_sprite.position + (Vector2.UP * 32), .5
 	)
+	Sounds.play_sound(Globals.SOUND_NAME_GROW)
 	await TW.finished
 
 	my_small_collider.disabled = true

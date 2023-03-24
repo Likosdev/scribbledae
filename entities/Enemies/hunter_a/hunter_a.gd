@@ -89,6 +89,7 @@ func _on_hurt_box_area_entered(area):
 
 func _on_hit_box_area_entered(area : Area2D):
 	if area.owner is Player and area.is_in_group('HurtBoxes'):
+		Sounds.play_sound(Globals.SOUND_NAME_ENEMY_DEFEATED)
 		emit_signal("defeated", self.position)
 		EventBus.emit_signal('enemie_defeated', self.position)
 		queue_free()

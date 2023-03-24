@@ -1,0 +1,71 @@
+[gd_scene load_steps=13 format=3 uid="uid://b4xtsmthlwxfm"]
+
+[ext_resource type="Script" path="res://scenes/SoundPlayer.gd" id="1_ms78n"]
+[ext_resource type="AudioStream" uid="uid://dq3bnvnqega45" path="res://assets/sounds/jump_a.sfxr" id="2_istrp"]
+[ext_resource type="AudioStream" uid="uid://ddd5lr8ga4dbq" path="res://assets/sounds/die.wav" id="3_5eqok"]
+[ext_resource type="AudioStream" uid="uid://c80cjdv0ng4gc" path="res://assets/sounds/open_float.sfxr" id="4_8uwj1"]
+[ext_resource type="AudioStream" uid="uid://6kyhgrkyekqa" path="res://assets/sounds/open_float_2.sfxr" id="5_ruc6h"]
+[ext_resource type="AudioStream" uid="uid://kbh1veuomcr7" path="res://assets/sounds/hit_a.sfxr" id="6_rbims"]
+[ext_resource type="AudioStream" uid="uid://7pac5i1wbm6y" path="res://assets/sounds/explosion.wav" id="7_4o1uc"]
+[ext_resource type="AudioStream" uid="uid://28wygq5v52yo" path="res://assets/sounds/loose_item.sfxr" id="8_65ylk"]
+[ext_resource type="AudioStream" uid="uid://2ecn5syh1fl" path="res://assets/sounds/bump.sfxr" id="9_q15tp"]
+[ext_resource type="AudioStream" uid="uid://c14o5x8y0280s" path="res://assets/sounds/grow.wav" id="10_e00iq"]
+[ext_resource type="AudioStream" uid="uid://t0ji006gchfp" path="res://assets/sounds/feed.sfxr" id="11_6i1mo"]
+[ext_resource type="AudioStream" uid="uid://d1x2hsq58mijn" path="res://assets/sounds/step_2.sfxr" id="12_x68bu"]
+
+[node name="SoundPlayer" type="Node"]
+script = ExtResource("1_ms78n")
+
+[node name="AudioPlayers" type="Node" parent="."]
+
+[node name="JUMP" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("2_istrp")
+bus = &"SFX"
+
+[node name="DEFEAT" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("3_5eqok")
+bus = &"SFX"
+
+[node name="COLLECT" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("2_istrp")
+bus = &"SFX"
+
+[node name="UMBRELLA_OPEN" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("4_8uwj1")
+bus = &"SFX"
+
+[node name="UMBRELLA_CLOSE" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("5_ruc6h")
+bus = &"SFX"
+
+[node name="TAKE_DAMAGE" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("6_rbims")
+bus = &"SFX"
+
+[node name="ENEMY_DEFEATED" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("7_4o1uc")
+bus = &"SFX"
+
+[node name="HEAL" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("2_istrp")
+bus = &"SFX"
+
+[node name="LOOSE_ITEM" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("8_65ylk")
+bus = &"SFX"
+
+[node name="BUMP" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("9_q15tp")
+bus = &"SFX"
+
+[node name="GROW" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("10_e00iq")
+bus = &"SFX"
+
+[node name="FEED" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("11_6i1mo")
+bus = &"SFX"
+
+[node name="STEP" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("12_x68bu")
+bus = &"SFX"

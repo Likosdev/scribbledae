@@ -29,5 +29,6 @@ func _on_hit_box_area_entered(area):
 	my_hit_box.set_deferred('monitorable', false)
 	my_hurt_box.set_deferred('monitorable', false) 
 	my_sprite.visible = false
+	Sounds.play_sound(Globals.SOUND_NAME_ENEMY_DEFEATED)
 	await get_tree().create_timer(.4).timeout
 	queue_free()

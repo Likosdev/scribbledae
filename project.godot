@@ -21,6 +21,7 @@ boot_splash/minimum_display_time=1000
 
 EventBus="*res://globals/EventBus.gd"
 Globals="*res://globals/GLOBALS.gd"
+Sounds="*res://globals/sound_player.tscn"
 
 [display]
 
@@ -36,6 +37,10 @@ movie_writer/movie_file="F:/godot4/p/scribbledae/scrib.avi"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gdfxr/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

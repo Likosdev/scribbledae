@@ -87,6 +87,7 @@ func my_process_new(delta :float):
 			if Input.is_action_just_pressed("jump"):
 				jumps_left -=1
 				state = PlayerStates.JUMPING
+				Sounds.play_sound(Globals.SOUND_NAME_JUMP)
 				velocity.y += JUMP_VELOCITY
 			
 			my_animation_player.play('idle')	
@@ -102,6 +103,7 @@ func my_process_new(delta :float):
 			if Input.is_action_just_pressed("jump"):
 				jumps_left -= 1
 				state = PlayerStates.JUMPING
+				Sounds.play_sound(Globals.SOUND_NAME_JUMP)
 				velocity.y = JUMP_VELOCITY
 				
 			my_animation_player.play("walk")
@@ -117,6 +119,7 @@ func my_process_new(delta :float):
 			elif Input.is_action_just_pressed("jump") and jumps_left: 
 				jumps_left -= 1
 				state = PlayerStates.DOUBLE_JUMPING
+				Sounds.play_sound(Globals.SOUND_NAME_JUMP)
 				velocity.y = JUMP_VELOCITY
 				
 			if velocity.y > 10:
@@ -132,6 +135,7 @@ func my_process_new(delta :float):
 			if not has_burger and jump_held_delta > float_threshold / 2 and not knockback:
 				state = PlayerStates.FLOATING
 				my_umbrella_animation_player.play("open")
+				Sounds.play_sound(Globals.SOUND_NAME_UMBRELLA_OPEN)
 			
 			if velocity.y > 10:
 				state = PlayerStates.FALLING
@@ -142,8 +146,10 @@ func my_process_new(delta :float):
 			if not has_burger and jump_held_delta > float_threshold / 3 and not knockback:
 				state = PlayerStates.FLOATING
 				my_umbrella_animation_player.play("open")
+				Sounds.play_sound(Globals.SOUND_NAME_UMBRELLA_OPEN)
 			elif jumps_left > 0 and Input.is_action_just_pressed("jump"):
 				state = PlayerStates.DOUBLE_JUMPING
+				Sounds.play_sound(Globals.SOUND_NAME_JUMP)
 				jumps_left -= 1
 				velocity.y = JUMP_VELOCITY
 
@@ -156,11 +162,13 @@ func my_process_new(delta :float):
 		PlayerStates.FLOATING:
 			if Input.is_action_just_released("jump") or knockback:
 				my_umbrella_animation_player.play("close")
+				Sounds.play_sound(Globals.SOUND_NAME_UMBRELLA_CLOSE)
 				state = PlayerStates.FALLING
 				jump_held_delta = 0.0
 
 			if is_on_floor():
 				my_umbrella_animation_player.play("close")
+				Sounds.play_sound(Globals.SOUND_NAME_UMBRELLA_CLOSE)
 				state = PlayerStates.IDLE
 
 			else:
@@ -195,6 +203,7 @@ func take_damage():
 	if invulnerable: return
 	health -= 1
 	invulnerable = true
+	Sounds.play_sound(Globals.SOUND_NAME_TAKE_DAMAGE)
 	var TW = create_tween().set_parallel().set_ease(Tween.EASE_IN_OUT)
 	TW.tween_property(my_sprite, 'self_modulate', Color.RED, I_TIME  / 2)
 	TW.chain().tween_property(my_sprite, 'self_modulate', Color.WHITE, I_TIME / 2)
@@ -207,6 +216,7 @@ func take_damage():
 	if health == 0:
 		state = PlayerStates.DEFEATED
 		$CollisionShape2D.set_deferred("disabled", true)
+		Sounds.play_sound(Globals.SOUND_NAME_DEFEAT)
 		await TW.finished
 		EventBus.emit_signal("player_defeated", self.global_position)
 	else:	
@@ -216,6 +226,7 @@ func take_damage():
 func heal(amount: int):
 	health = clampi(health + amount,0, MAX_HEALTH)
 	emit_signal("health_changed", health)
+	Sounds.play_sound(Globals.SOUND_NAME_HEAL)
 	EventBus.player_healed.emit(1)
 
 func apply_knockback(dir : Vector2 = Vector2.ZERO):
@@ -235,20 +246,27 @@ func apply_knockback(dir : Vector2 = Vector2.ZERO):
 		knockback = false
 
 func handle_burger_pickup():
+	Sounds.play_sound(Globals.SOUND_NAME_COLLECT)
 	has_burger = true
 	my_burger_marker.show()
 
 func handle_burger_deliver():
+	Sounds.play_sound(Globals.SOUND_NAME_LOOSE_ITEM)
 	has_burger = false
 	my_burger_marker.hide()
 	
 func handle_burger_leave():
+	Sounds.play_sound(Globals.SOUND_NAME_LOOSE_ITEM)
 	has_burger = false
 	my_burger_marker.hide()
 
 func handle_burger_loss():
+	Sounds.play_sound(Globals.SOUND_NAME_LOOSE_ITEM)
 	handle_burger_leave()
 	EventBus.pickup_left.emit(self.position, Globals.PICKUP_NAME_BURGER)
+
+func play_walking_sound():
+	Sounds.play_sound(Globals.SOUND_NAME_STEP, true)
 
 func _on_hurt_box_area_entered(area : Area2D):
 	var is_hurtable = area.is_in_group(Globals.GROUP_NAME_HITBOXES)
