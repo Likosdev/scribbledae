@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4xtsmthlwxfm"]
+[gd_scene load_steps=14 format=3 uid="uid://b4xtsmthlwxfm"]
 
 [ext_resource type="Script" path="res://scenes/SoundPlayer.gd" id="1_ms78n"]
 [ext_resource type="AudioStream" uid="uid://dq3bnvnqega45" path="res://assets/sounds/jump_a.sfxr" id="2_istrp"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://6kyhgrkyekqa" path="res://assets/sounds/open_float_2.sfxr" id="5_ruc6h"]
 [ext_resource type="AudioStream" uid="uid://kbh1veuomcr7" path="res://assets/sounds/hit_a.sfxr" id="6_rbims"]
 [ext_resource type="AudioStream" uid="uid://7pac5i1wbm6y" path="res://assets/sounds/explosion.wav" id="7_4o1uc"]
+[ext_resource type="AudioStream" uid="uid://lic5pg3cswyp" path="res://assets/sounds/pwr_up.wav" id="8_7x0k8"]
 [ext_resource type="AudioStream" uid="uid://28wygq5v52yo" path="res://assets/sounds/loose_item.sfxr" id="8_65ylk"]
 [ext_resource type="AudioStream" uid="uid://2ecn5syh1fl" path="res://assets/sounds/bump.sfxr" id="9_q15tp"]
 [ext_resource type="AudioStream" uid="uid://c14o5x8y0280s" path="res://assets/sounds/grow.wav" id="10_e00iq"]
@@ -20,6 +21,7 @@ script = ExtResource("1_ms78n")
 
 [node name="JUMP" type="AudioStreamPlayer" parent="AudioPlayers"]
 stream = ExtResource("2_istrp")
+volume_db = -7.723
 bus = &"SFX"
 
 [node name="DEFEAT" type="AudioStreamPlayer" parent="AudioPlayers"]
@@ -47,7 +49,7 @@ stream = ExtResource("7_4o1uc")
 bus = &"SFX"
 
 [node name="HEAL" type="AudioStreamPlayer" parent="AudioPlayers"]
-stream = ExtResource("2_istrp")
+stream = ExtResource("8_7x0k8")
 bus = &"SFX"
 
 [node name="LOOSE_ITEM" type="AudioStreamPlayer" parent="AudioPlayers"]

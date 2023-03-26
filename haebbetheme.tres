@@ -1,8 +1,39 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://do4cdk532qgqo"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://do4cdk532qgqo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4no8m"]
+bg_color = Color(0.976471, 0.843137, 0.768627, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.337255, 0.776471, 0.980392, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2cwvh"]
+bg_color = Color(0.839216, 0.501961, 0.294118, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.337255, 0.776471, 0.980392, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hafut"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8p4ph"]
 bg_color = Color(1, 1, 1, 1)
-skew = Vector2(0.05, 0)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
@@ -21,6 +52,17 @@ shadow_size = 1
 shadow_offset = Vector2(5.943, -5.015)
 anti_aliasing_size = 1.0
 
+[sub_resource type="SystemFont" id="SystemFont_76mxn"]
+
 [resource]
+default_font = SubResource("SystemFont_76mxn")
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.890196, 0.552941, 0.419608, 1)
+Button/colors/font_hover_color = Color(0.88904, 0.551931, 0.419377, 1)
+Button/font_sizes/font_size = 28
+Button/styles/hover = SubResource("StyleBoxFlat_4no8m")
+Button/styles/normal = SubResource("StyleBoxFlat_2cwvh")
+Panel/styles/panel = SubResource("StyleBoxEmpty_hafut")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_8p4ph")
 RichTextLabel/colors/default_color = Color(0, 0, 0, 1)

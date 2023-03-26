@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://bvlo3kydk0uap"]
+[gd_scene load_steps=18 format=3 uid="uid://bvlo3kydk0uap"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_mt8ha"]
+[ext_resource type="PackedScene" uid="uid://crs48cj2sys2u" path="res://menus/main_menu/main_menu.tscn" id="2_7i34y"]
 [ext_resource type="PackedScene" uid="uid://b10de47ydreta" path="res://scenes/Levels/Level1/level_1.tscn" id="2_ic4a4"]
 [ext_resource type="PackedScene" uid="uid://cgpy6k3fxdcna" path="res://entities/Player/player.tscn" id="3_ukyqa"]
 [ext_resource type="PackedScene" uid="uid://1by1lfh1ck8v" path="res://scenes/Levels/Level2/level_2.tscn" id="3_xpe8a"]
@@ -40,6 +41,8 @@ noise = SubResource("FastNoiseLite_tmo8e")
 
 [node name="Main" type="Node"]
 script = ExtResource("1_mt8ha")
+current_game_state = 4
+MainMenuScene = ExtResource("2_7i34y")
 TileMaps = Array[PackedScene]([ExtResource("3_xpe8a"), ExtResource("2_ic4a4"), ExtResource("4_lip7l")])
 PlayerScene = ExtResource("3_ukyqa")
 
@@ -109,3 +112,6 @@ bus = &"SFX"
 [node name="SpawnHandler" type="Node" parent="."]
 script = ExtResource("11_x6b4j")
 Burger_Scene = ExtResource("12_c2y7c")
+
+[node name="MenuLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true

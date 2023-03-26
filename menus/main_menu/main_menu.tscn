@@ -1,0 +1,331 @@
+[gd_scene load_steps=10 format=3 uid="uid://crs48cj2sys2u"]
+
+[ext_resource type="Theme" uid="uid://do4cdk532qgqo" path="res://haebbetheme.tres" id="1_llnar"]
+[ext_resource type="Script" path="res://menus/main_menu/main_menu.gd" id="2_agix6"]
+[ext_resource type="Texture2D" uid="uid://g4oae2r0cwjq" path="res://assets/shared/scribbledae_all_enhanced_bo.png" id="3_63812"]
+[ext_resource type="Texture2D" uid="uid://c6g7knelun0ng" path="res://assets/shared/scribbledae_new_tiles_singles.png" id="3_ld0sw"]
+[ext_resource type="PackedScene" uid="uid://g2svy52dspii" path="res://entities/Grass.tscn" id="5_yxn7m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ejmuy"]
+atlas = ExtResource("3_63812")
+region = Rect2(192, 32, 64, 64)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x0kfn"]
+load_path = "res://.godot/imported/scribbledae_all_enhanced_bo.png-a9c00436f23a8a41f805db3ed34ceecf.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qc1a"]
+atlas = SubResource("CompressedTexture2D_x0kfn")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rqgg1"]
+atlas = ExtResource("3_ld0sw")
+region = Rect2(192, 32, 64, 64)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_llnar")
+script = ExtResource("2_agix6")
+metadata/_edit_vertical_guides_ = [416.0, 608.0]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = -35.0
+offset_top = 229.0
+offset_right = 20.006
+offset_bottom = 165.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect4" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 61.0
+offset_top = 317.0
+offset_right = 116.006
+offset_bottom = 253.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect5" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 157.0
+offset_top = 365.0
+offset_right = 212.006
+offset_bottom = 301.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect6" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 229.0
+offset_top = 320.0
+offset_right = 284.006
+offset_bottom = 256.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect7" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 333.0
+offset_top = 357.0
+offset_right = 388.006
+offset_bottom = 293.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect8" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 445.0
+offset_top = 381.0
+offset_right = 500.006
+offset_bottom = 317.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect9" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 573.0
+offset_top = 349.0
+offset_right = 628.006
+offset_bottom = 285.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect10" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 669.0
+offset_top = 253.0
+offset_right = 724.006
+offset_bottom = 189.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect11" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 669.0
+offset_top = 253.0
+offset_right = 724.006
+offset_bottom = 189.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect12" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 765.0
+offset_top = 349.0
+offset_right = 820.006
+offset_bottom = 285.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect13" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 861.0
+offset_top = 285.0
+offset_right = 916.006
+offset_bottom = 221.048
+texture = SubResource("AtlasTexture_ejmuy")
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 21.0
+offset_top = 405.0
+offset_right = -51.994
+offset_bottom = 192.782
+texture = SubResource("AtlasTexture_1qc1a")
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.261
+anchor_bottom = 0.727
+offset_left = 693.0
+offset_top = 277.0
+offset_right = 748.006
+offset_bottom = 192.782
+texture = SubResource("AtlasTexture_rqgg1")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.457631
+anchor_top = 0.0170899
+anchor_right = 0.622799
+anchor_bottom = 0.173996
+offset_left = 0.419983
+offset_top = -4.12601
+offset_right = 10.85
+offset_bottom = 5.086
+theme_override_colors/default_color = Color(0.8, 0.486275, 0.180392, 1)
+theme_override_colors/font_outline_color = Color(0.94902, 0.941176, 0.980392, 1)
+theme_override_font_sizes/normal_font_size = 23
+text = "SCRIBBLEDAE"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Grass" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(61, 488)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass2" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(180, 488)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass3" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(300, 488)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass4" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(419, 489)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass5" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(538, 489)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass6" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(654, 489)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass7" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(769, 489)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass8" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(887, 489)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass9" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(989, 489)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="Grass10" parent="PanelContainer/Panel" instance=ExtResource("5_yxn7m")]
+z_index = 4
+position = Vector2(9.00012, 493)
+scale = Vector2(3.8125, 3.8125)
+
+[node name="ButtonNewGame" type="Button" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -214.0
+offset_right = 128.0
+offset_bottom = -171.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+text = "NEW GAME"
+
+[node name="ButtonContinue" type="Button" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -166.0
+offset_right = 128.0
+offset_bottom = -123.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+disabled = true
+text = "CONTINUE"
+
+[node name="ButtonOptions" type="Button" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -118.0
+offset_right = 128.0
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+disabled = true
+text = "OPTIONS"
+
+[node name="ButtonQuit" type="Button" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -70.0
+offset_right = 128.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+text = "QUIT
+"
+flat = true
+
+[connection signal="pressed" from="PanelContainer/Panel/ButtonNewGame" to="." method="_on_button_new_game_pressed"]
+[connection signal="pressed" from="PanelContainer/Panel/ButtonContinue" to="." method="_on_button_continue_pressed"]
+[connection signal="pressed" from="PanelContainer/Panel/ButtonOptions" to="." method="_on_button_options_pressed"]
+[connection signal="pressed" from="PanelContainer/Panel/ButtonQuit" to="." method="_on_button_quit_pressed"]

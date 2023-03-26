@@ -1,26 +1,59 @@
 extends Node
 
+enum GameState {loading,new_game, running, pause_menu, main_menu, init}
+@export var current_game_state : GameState = GameState.init
+@export var MainMenuScene: PackedScene
 @export var TileMaps : Array[PackedScene]
 @export var PlayerScene : PackedScene
-# Called when the node enters the scene tree for the first time.
+
 
 @onready var main_camera : MainCamera = %MainCamera
 @onready var my_hud : HUD = %HUD
 @onready var my_screen_fader = %ScreenFader
 @onready var my_fx_spawner : FX = $FX
 @onready var my_spawn_handler : SpawnHandler = $SpawnHandler 
+@onready var my_menu_layer := %MenuLayer
+
 
 var current_level : Level = null
 var current_level_index : int = 0
 var current_player_instance : Player = null
 
+var current_main_menu : MainMenu = null
 
-enum GameState {loading, running, pause_menu, main_menu}
 
-var current_game_state : GameState = GameState.loading
 
 func _ready():
-	init_run()
+	if current_game_state == GameState.init:
+		change_game_state(GameState.main_menu)
+	change_game_state(current_game_state)
+
+func change_game_state(new_game_state : GameState):
+	#if new_game_state == current_game_state: return
+	
+	if current_game_state == GameState.main_menu and current_main_menu != null:
+		my_menu_layer.remove_child(current_main_menu)
+		current_main_menu = null
+	
+	
+	match new_game_state:
+		GameState.main_menu:
+			display_main_menu()
+		GameState.new_game:
+			run_first_level()
+		
+	current_game_state = new_game_state
+	
+
+
+func display_main_menu():
+	if not current_main_menu:
+		current_main_menu = MainMenuScene.instantiate()
+		my_menu_layer.add_child(current_main_menu)
+		current_main_menu.new_game_pressed.connect(run_first_level)
+		current_main_menu.load_game_pressed.connect(
+				func(): print("continue clicked")
+		)
 
 func spawn_level_by_index(index:int) -> Level:
 	return TileMaps[index].instantiate()
@@ -56,7 +89,8 @@ func get_current_level_spawn_position() -> Vector2:
 	else:
 		return Vector2.ZERO
 
-func init_run():
+func run_first_level():
+	change_game_state(GameState.running)
 	EventBus.pickup_collected.connect(self.on_pickup_collected)
 	EventBus.player_defeated.connect(self.on_player_defeated)
 	EventBus.pickup_left.connect(self.on_pickup_left)
@@ -65,6 +99,7 @@ func init_run():
 	current_player_instance = spawn_player()
 	attach_player_and_level()
 	attach_camera()
+	
 	await fade_in()
 	
 	current_game_state = GameState.running
