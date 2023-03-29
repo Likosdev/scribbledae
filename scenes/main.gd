@@ -5,6 +5,8 @@ enum GameState {loading,new_game, running, pause_menu, main_menu, init}
 @export var MainMenuScene: PackedScene
 @export var TileMaps : Array[PackedScene]
 @export var PlayerScene : PackedScene
+@export_color_no_alpha var ScreenFaderColor : Color = Color.BLACK
+
 
 
 @onready var main_camera : MainCamera = %MainCamera
@@ -18,7 +20,6 @@ enum GameState {loading,new_game, running, pause_menu, main_menu, init}
 var current_level : Level = null
 var current_level_index : int = 0
 var current_player_instance : Player = null
-
 var current_main_menu : MainMenu = null
 
 
@@ -94,13 +95,17 @@ func run_first_level():
 	EventBus.pickup_collected.connect(self.on_pickup_collected)
 	EventBus.player_defeated.connect(self.on_player_defeated)
 	EventBus.pickup_left.connect(self.on_pickup_left)
-	my_screen_fader.color = Color.BLACK
+	my_screen_fader.color = ScreenFaderColor
 	current_level = spawn_level_by_index(current_level_index)
 	current_player_instance = spawn_player()
 	attach_player_and_level()
 	attach_camera()
+	my_hud.display_level_announcement(
+			current_level.WorldNumber, current_level.LevelNumber, current_level.LevelName
+	)
 	
-	await fade_in()
+	await my_hud.level_announcement_show
+	await fade_in(.5)
 	
 	current_game_state = GameState.running
 
@@ -108,16 +113,16 @@ func on_pickup_collected(position: Vector2, pickup: String):
 	print("Pickup {} Collected at {}".format([pickup, position], '{}'))
 	
 
-func fade_in():
+func fade_in(duration : float = 1):
 	var TW = create_tween()
-	TW.tween_property(my_screen_fader, "color", Color.TRANSPARENT, 1.0)
+	TW.tween_property(my_screen_fader, "color", Color.TRANSPARENT, duration)
 	await TW.finished
 	return true
 	
 	
 func fade_out():
 	var TW = create_tween()
-	TW.tween_property(my_screen_fader, "color", Color.BLACK, 1.0)
+	TW.tween_property(my_screen_fader, "color", ScreenFaderColor, 1.0)
 	await TW.finished
 	return true
 
@@ -133,7 +138,9 @@ func attach_camera():
 
 func attach_player_and_level() -> bool:
 	add_child(current_level)
+	current_player_instance.controllable = false
 	current_level.add_child(current_player_instance)
+	my_hud.level_announcement_done.connect(func(): current_player_instance.controllable = true)
 	current_player_instance.position = get_current_level_spawn_position()
 	
 	for pickup in get_tree().get_nodes_in_group('health_pickups'):
@@ -152,20 +159,28 @@ func attach_player_and_level() -> bool:
 	return true
 
 func next_level():
+	await fade_out()
 	current_game_state = GameState.loading
 	current_level_index += 1
 	if current_level_index > self.TileMaps.size() - 1:
 		current_level_index = 0
 	if despawn_level() and despawn_player():
 		current_level = spawn_level_by_index(current_level_index)
+		
 		current_player_instance = spawn_player()
 		var _success = attach_player_and_level()
+		my_hud.display_level_announcement(
+			current_level.WorldNumber, current_level.LevelNumber, current_level.LevelName
+		)
 		attach_camera()
+		await my_hud.level_announcement_done
+		fade_in(1)
 		current_game_state = GameState.running
 
 
 func on_level_completed():
-	call_deferred("next_level") 
+	
+	call_deferred("next_level")
 
 func on_health_pickup_collected(_position: Vector2):
 	current_player_instance.heal(1)
@@ -200,6 +215,7 @@ func reset_level():
 
 
 	EventBus.emit_signal("level_restart")
+	current_player_instance.controllable = true
 	main_camera.stopped = false
 	return true
 

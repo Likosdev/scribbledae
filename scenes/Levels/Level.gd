@@ -2,6 +2,11 @@
 extends TileMap
 class_name Level
 
+
+@export var LevelNumber := 1
+@export var WorldNumber := 1
+@export var LevelName := "LevelName_CHANGE_ME"
+
 @onready var spawn_point : Marker2D = $SpawnPoint
 @onready var completion_area : Area2D = $CompletionArea
 @onready var insta_death_area : Area2D = $InstaDeathArea
@@ -44,9 +49,15 @@ func get_spawn_point():
 	return self.spawn_point.position
 
 
+func _process(delta):
+	if Engine.is_editor_hint():
+		update_configuration_warnings() 
+
 func level_completed(body):
 	if Engine.is_editor_hint(): return
 	if body is Player:
+		body.controllable = false
+		
 		emit_signal("completed")
 
 

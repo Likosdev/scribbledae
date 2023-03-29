@@ -1,0 +1,10 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0tsh0hk10wqq"]
+
+[ext_resource type="PackedScene" uid="uid://bvlo3kydk0uap" path="res://scenes/main.tscn" id="1_5ngun"]
+[ext_resource type="PackedScene" uid="uid://bdrq8uh0khm64" path="res://scenes/Levels/Level3/level_3.tscn" id="2_q4icv"]
+[ext_resource type="PackedScene" uid="uid://1by1lfh1ck8v" path="res://scenes/Levels/Level2/level_2.tscn" id="3_ss4yi"]
+[ext_resource type="PackedScene" uid="uid://b10de47ydreta" path="res://scenes/Levels/Level1/level_1.tscn" id="4_n3tml"]
+
+[node name="MainDebug" instance=ExtResource("1_5ngun")]
+current_game_state = 1
+TileMaps = Array[PackedScene]([ExtResource("2_q4icv"), ExtResource("3_ss4yi"), ExtResource("4_n3tml")])

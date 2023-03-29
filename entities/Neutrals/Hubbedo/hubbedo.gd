@@ -54,7 +54,7 @@ func grow():
 	)
 
 	TW.tween_property(
-			my_small_sprite, 'position', my_small_sprite.position + (Vector2.UP * 32), .5
+			my_small_sprite, 'position', my_small_sprite.position + (Vector2.UP * 29), .5
 	)
 	Sounds.play_sound(Globals.SOUND_NAME_GROW)
 	await TW.finished

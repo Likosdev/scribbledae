@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bifb53mhwxxuq"]
+[gd_scene load_steps=9 format=3 uid="uid://bifb53mhwxxuq"]
 
 [ext_resource type="Texture2D" uid="uid://drs5jbymlcd0f" path="res://assets/shared/fx.png" id="1_p3fix"]
 [ext_resource type="Script" path="res://FX/poof_pfx.gd" id="2_13kjg"]
@@ -9,41 +9,50 @@ particles_anim_h_frames = 8
 particles_anim_v_frames = 2
 particles_anim_loop = false
 
+[sub_resource type="Gradient" id="Gradient_0n62a"]
+offsets = PackedFloat32Array(0.18612, 1)
+colors = PackedColorArray(1, 0.964706, 0.835294, 1, 0.913025, 0.260951, 0.267604, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g3bkh"]
+gradient = SubResource("Gradient_0n62a")
+
 [sub_resource type="Curve" id="Curve_6uxyd"]
-_data = [Vector2(0.464968, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+max_value = 5.0
+_data = [Vector2(0.00287356, 0.363636), 0.0, 19.7727, 0, 0, Vector2(0.752874, 0.227273), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_qckn3"]
 curve = SubResource("Curve_6uxyd")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xopxd"]
-lifetime_randomness = 0.04
+lifetime_randomness = 0.88
 emission_shape = 1
-emission_sphere_radius = 16.0
+emission_sphere_radius = 5.0
 particle_flag_disable_z = true
 direction = Vector3(0, 0, 0)
 spread = 180.0
-flatness = 0.42
+flatness = 0.07
 gravity = Vector3(0, 0, 0)
-initial_velocity_min = 1.0
-initial_velocity_max = 20.0
+initial_velocity_min = 10.0
+initial_velocity_max = 80.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+linear_accel_min = -30.11
+linear_accel_max = 30.1
 tangential_accel_min = -17.75
-damping_min = 24.85
-damping_max = 98.82
-angle_min = -14.1
-angle_max = 17.0
-scale_min = 0.1
-scale_max = 2.0
+angle_min = -180.0
+angle_max = 180.0
 scale_curve = SubResource("CurveTexture_qckn3")
+color_ramp = SubResource("GradientTexture1D_g3bkh")
 anim_speed_min = 1.0
 anim_speed_max = 1.5
 attractor_interaction_enabled = false
 
 [node name="PoofPFX" type="GPUParticles2D"]
 material = SubResource("CanvasItemMaterial_oiqck")
-amount = 3
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_xopxd")
 texture = ExtResource("1_p3fix")
 explosiveness = 1.0

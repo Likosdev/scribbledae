@@ -45,6 +45,7 @@ current_game_state = 4
 MainMenuScene = ExtResource("2_7i34y")
 TileMaps = Array[PackedScene]([ExtResource("3_xpe8a"), ExtResource("2_ic4a4"), ExtResource("4_lip7l")])
 PlayerScene = ExtResource("3_ukyqa")
+ScreenFaderColor = Color(0.376843, 0.761722, 0.891601, 1)
 
 [node name="Hudlayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

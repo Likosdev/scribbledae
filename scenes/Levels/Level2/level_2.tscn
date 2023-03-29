@@ -10,7 +10,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_pncgo"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 51, 48, 0, 0, 0, 0, -154, 48, 0, 0, 0, 0, -152, -72, 0, 0, 0, 0, -60, 209, 0, 0, 0, 0, 55, -73, 0, 0, 0, 0, 51, 48)
+"points": PackedVector2Array(0, 0, 0, 0, 51, 48, 0, 0, 0, 0, -154, 48, 0, 0, 0, 0, -152, -72, 0, 0, 0, 0, -60, 229, 0, 0, 0, 0, 55, -73, 0, 0, 0, 0, 51, 48)
 }
 point_count = 6
 
@@ -29,13 +29,14 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(786442, 327680, 0, 786444, 327680, 0, 786437, 327680, 0, 786435, 65536, 1, 786436, 327680, 0, 786443, 327680, 0, 786456, 327680, 0, 786457, 327680, 0, 786455, 327680, 0, 720894, 327680, 0, 720893, 327680, 0, 720892, 327680, 0, 720891, 0, 1)
 script = ExtResource("1_qnq4p")
+LevelName = "Los gehts!"
 
 [node name="PathFollowEnemy" parent="." instance=ExtResource("3_dbq4k")]
 position = Vector2(509, 151)
 curve = SubResource("Curve2D_pncgo")
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(-91, 173)
+position = Vector2(627, 374)
 
 [node name="CompletionArea" type="Area2D" parent="."]
 position = Vector2(815, 158)

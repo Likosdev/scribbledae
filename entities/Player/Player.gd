@@ -1,6 +1,14 @@
 extends CharacterBody2D
 class_name Player
 
+
+# TODO:
+"""
+Floating State sometimes stays after land and close animation is not played
+
+
+"""
+
 enum PlayerStates {
 	IDLE,
 	WALKING,
@@ -37,6 +45,7 @@ var has_burger := false
 var jumps_left := 2
 var float_threshold := 0.5
 var invulnerable := false
+var controllable := true
 
 var jump_held_delta := 0.0
 
@@ -60,6 +69,8 @@ func _ready():
 	EventBus.pickup_collected.connect(self.on_pickup_collected)
 
 func _physics_process(delta):
+	if not controllable: return
+
 	my_process_new(delta)
 
 func my_process_new(delta :float):
@@ -80,7 +91,7 @@ func my_process_new(delta :float):
 			display_state_and_velocity()
 			
 		PlayerStates.IDLE:
-			jumps_left = 2
+			if is_on_floor(): jumps_left = 2
 			if direction and is_on_floor():
 				state = PlayerStates.WALKING
 			
@@ -116,7 +127,7 @@ func my_process_new(delta :float):
 			if not has_burger and jump_held_delta > float_threshold and not knockback:
 				state = PlayerStates.FLOATING
 				my_umbrella_animation_player.play("open")
-			elif Input.is_action_just_pressed("jump") and jumps_left: 
+			elif Input.is_action_just_pressed("jump") and jumps_left > 0: 
 				jumps_left -= 1
 				state = PlayerStates.DOUBLE_JUMPING
 				Sounds.play_sound(Globals.SOUND_NAME_JUMP)
@@ -133,8 +144,8 @@ func my_process_new(delta :float):
 				state = PlayerStates.IDLE
 			
 			if not has_burger and jump_held_delta > float_threshold / 2 and not knockback:
-				state = PlayerStates.FLOATING
 				my_umbrella_animation_player.play("open")
+				state = PlayerStates.FLOATING
 				Sounds.play_sound(Globals.SOUND_NAME_UMBRELLA_OPEN)
 			
 			if velocity.y > 10:
@@ -160,16 +171,20 @@ func my_process_new(delta :float):
 			my_animation_player.play('fall')
 
 		PlayerStates.FLOATING:
-			if Input.is_action_just_released("jump") or knockback:
+			if Input.is_action_just_released("jump") or knockback or is_on_floor():
+				jump_held_delta = 0.0
 				my_umbrella_animation_player.play("close")
 				Sounds.play_sound(Globals.SOUND_NAME_UMBRELLA_CLOSE)
-				state = PlayerStates.FALLING
-				jump_held_delta = 0.0
+				state = PlayerStates.IDLE  \
+						if is_on_floor() \
+						else PlayerStates.FALLING
+				
 
 			if is_on_floor():
+				jump_held_delta = 0.0
 				my_umbrella_animation_player.play("close")
 				Sounds.play_sound(Globals.SOUND_NAME_UMBRELLA_CLOSE)
-				state = PlayerStates.IDLE
+				state = PlayerStates.IDLE if velocity.x != 0 else PlayerStates.WALKING
 
 			else:
 				velocity.y = velocity.y * .75
